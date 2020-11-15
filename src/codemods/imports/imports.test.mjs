@@ -1,14 +1,32 @@
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
-import addImports from './addImports.mjs';
+import importsMod from './imports.mjs';
+
+const data = {
+  importDefault: {
+    idenfifier: 'a',
+    source: 'b',
+  },
+  namedImport: {
+    idenfifiers: ['compose'],
+    source: 'ramda',
+  },
+};
+
+const transform = importsMod(data);
 
 const transformOptions = {};
 
-const source = '';
+const source = `
+import { compose } from 'ramda';
+`;
 
-const output = `import a from 'b';`;
+const output = `
+import { compose } from 'ramda';
+import a from 'b';
+`.trim();
 
-const expected = applyTransform(addImports, transformOptions, { source });
+const expected = applyTransform(transform, transformOptions, { source });
 
 describe('add imports', () => {
   it('it should add an import statement at the top of the file', () => {

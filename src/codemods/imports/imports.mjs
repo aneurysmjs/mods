@@ -2,11 +2,11 @@
 /** @typedef {import('jscodeshift').API} API */
 
 /**
- * @function addImports
- * @param {FileInfo} fileInfo
- * @param {API} api
+ * @function importsMo
+ * @param {object} data
+ * @return {(fileInfo: FileInfo, api: API) => string}
  */
-export default function addImports(fileInfo, api) {
+const importsMod = (data) => (fileInfo, api) => {
   const j = api.jscodeshift;
 
   /**
@@ -14,47 +14,40 @@ export default function addImports(fileInfo, api) {
    */
   const root = j(fileInfo.source);
 
-  const variable = j.variableDeclaration('const', [j.variableDeclarator(j.identifier('test'), j.literal(9)), j.variableDeclarator(j.identifier('baz'), j.literal(89))]);
+  /**
+   * Makes an import declaration with a `import default specifier`
+   * @param {string} identifier
+   * @param {string} source
+   */
+  const makeDefaultImport = (identifier, source) =>
+    j.importDeclaration([j.importDefaultSpecifier(j.identifier(identifier))], j.literal(source));
 
-  const string = j.stringLiteral('jero');
+  /**
+   * Makes an import declaration with a `import specifier`
+   * @param {string|Array<string>} identifier
+   * @param {string} source
+   */
+  const makeNamedImport = (identifier, source) => {
+    const specifierArray = Array.isArray(identifier) ? identifier : [identifier];
+    const importSpecifiers = specifierArray.map((i) => j.importSpecifier(j.identifier(i)));
 
-  const importDefaultDeclaration = j.importDeclaration(
-    [j.importDefaultSpecifier(j.identifier('a'))],
-    j.literal('b'),
-  );
+    return j.importDeclaration(importSpecifiers, j.literal(source));
+  };
 
-  const namedImportDeclaration = j.importDeclaration(
-    [j.importSpecifier(j.identifier('Reducer')), j.importSpecifier(j.identifier('Store'))],
-    j.literal('redux'),
-  );
+  let importsBody = root.find(j.ImportDeclaration);
 
-  const importNamesSpaceDeclaration = j.importDeclaration(
-    [j.importNamespaceSpecifier(j.identifier('yeah'))],
-    j.literal('b'),
-  );
+  if (importsBody.length) {
+    importsBody.replaceWith(() => {
+      return [
+        makeNamedImport(...Object.values(data.namedImport)),
+        makeDefaultImport(...Object.values(data.importDefault)),
+      ];
+    });
+  } else {
+    // importsBody = root.find(j.Program).replaceWith(() => j.program([importDefaultDeclaration]));
+  }
 
+  return importsBody.toSource({ quote: 'single', trailingComma: true });
+};
 
-  // const buildProperty = (name, value) => {
-  //   return j.property('init', j.identifier(name), j.literal(value));
-  // };
-
-  // j.objectExpression([buildProperty('name', 'Джеро')]);
-
-  const result = root
-    .find(j.Program)
-    /**
-     * By hand, accesing the `raw` AST node
-     */
-    // .forEach((path) => {
-    //   path.value.body.push(j(importDeclaration).toSource({ quote: 'single' }));
-    //   return path;
-    // })
-    /**
-     * By API, letting jscodeshift
-     */
-    .replaceWith(() => j.program([variable]))
-
-    .toSource({ quote: 'single', trailingComma: true });
-
-  return result;
-}
+export default importsMod;
