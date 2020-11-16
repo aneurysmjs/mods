@@ -2,34 +2,56 @@ import { applyTransform } from 'jscodeshift/dist/testUtils';
 
 import importsMod from './imports.mjs';
 
-const data = {
-  namedImport: {
-    idenfifiers: ['compose'],
-    source: 'ramda',
-  },
-  defaultImport: {
-    idenfifier: 'a',
-    source: 'b',
-  },
-};
-
-const transform = importsMod(data);
-
 const transformOptions = {};
 
-const source = `
+const namedImport = {
+  idenfifiers: ['compose'],
+  source: 'ramda',
+};
+
+const defaultImport = {
+  idenfifier: 'a',
+  source: 'b',
+};
+
+describe('imports', () => {
+  describe('adds import with existing ones', () => {
+    const data = {
+      namedImport,
+      defaultImport,
+    };
+
+    const source = `
 import { compose } from 'ramda';
 `;
 
-const output = `
+    const output = `
 import { compose } from 'ramda';
 import a from 'b';
-`.trim();
+`;
 
-const expected = applyTransform(transform, transformOptions, { source });
+    const expected = applyTransform(importsMod(data), transformOptions, { source });
 
-describe('add imports', () => {
-  it('it should add an import statement at the top of the file', () => {
-    expect(output).toEqual(expected);
+    it('it should add an import after the first one', () => {
+      expect(output.trim()).toEqual(expected);
+    });
+  });
+
+  describe("adds import with there's no one", () => {
+    const data = {
+      namedImport,
+    };
+
+    const source = '';
+
+    const output = `
+import { compose } from 'ramda';
+    `;
+
+    const expected = applyTransform(importsMod(data), transformOptions, { source });
+
+    it('it should add an import statement at the top of the file', () => {
+      expect(output.trim()).toEqual(expected);
+    });
   });
 });

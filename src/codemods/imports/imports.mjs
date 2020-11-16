@@ -26,7 +26,9 @@ const importsMod = (data) => (fileInfo, api) => {
       return [...mapDataToMaker(data, makers)];
     });
   } else {
-    // importsBody = root.find(j.Program).replaceWith(() => j.program([importDefaultDeclaration]));
+    importsBody = root
+      .find(j.Program)
+      .replaceWith(() => j.program([...mapDataToMaker(data, makers)]));
   }
 
   return importsBody.toSource({ quote: 'single', trailingComma: true });
