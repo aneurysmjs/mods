@@ -38,5 +38,18 @@ export default function makersCreator(j) {
 
       return j.importDeclaration(importSpecifiers, j.literal(source));
     },
+
+    /**
+     * Makes an import declaration with a `namespace specifier`
+     * @function makeNamespaceImport
+     * @param {string|Array<string>} identifier
+     * @param {string} source
+     */
+    makeNamespaceImport(identifier, source) {
+      return j.importDeclaration(
+        [j.importNamespaceSpecifier(j.identifier(identifier))],
+        j.literal(source),
+      );
+    },
   };
 }
