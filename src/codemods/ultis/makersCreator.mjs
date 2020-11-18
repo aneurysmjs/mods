@@ -16,10 +16,11 @@ export default function makersCreator(j) {
     /**
      * Makes an import declaration with a `import default specifier`
      * @function makeDefaultImport
-     * @param {string} identifier
-     * @param {string} source
+     * @param {object} dataTransform
+     * @param {string} dataTransform.identifier
+     * @param {string} dataTransform.source
      */
-    makeDefaultImport(identifier, source) {
+    makeDefaultImport({ identifier, source }) {
       return j.importDeclaration(
         [j.importDefaultSpecifier(j.identifier(identifier))],
         j.literal(source),
@@ -29,10 +30,11 @@ export default function makersCreator(j) {
     /**
      * Makes an import declaration with a `import specifier`
      * @function makeNamedImport
-     * @param {string|Array<string>} identifier
-     * @param {string} source
+     * @param {object} dataTransform
+     * @param {string|Array<string>} dataTransform.identifier
+     * @param {string} dataTransform.source
      */
-    makeNamedImport(identifier, source) {
+    makeNamedImport({ identifier, source }) {
       const specifierArray = Array.isArray(identifier) ? identifier : [identifier];
       const importSpecifiers = specifierArray.map((i) => j.importSpecifier(j.identifier(i)));
 
@@ -42,10 +44,11 @@ export default function makersCreator(j) {
     /**
      * Makes an import declaration with a `namespace specifier`
      * @function makeNamespaceImport
-     * @param {string|Array<string>} identifier
-     * @param {string} source
+     * @param {object} dataTransform
+     * @param {string} dataTransform.identifier
+     * @param {string} dataTransform.source
      */
-    makeNamespaceImport(identifier, source) {
+    makeNamespaceImport({ identifier, source }) {
       return j.importDeclaration(
         [j.importNamespaceSpecifier(j.identifier(identifier))],
         j.literal(source),

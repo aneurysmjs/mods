@@ -1,10 +1,10 @@
 /**
  * Maps `data transformation` keys with its corresponding maker
  */
-export default function mapDataToMaker(obj, mapper) {
-  return Object.keys(obj).map((key) => {
-    const cappedKey = key.replace(key[0], key[0].toUpperCase());
+export default function mapDataToMaker(data, mapper) {
+  return Object.keys(data).map((key) => {
+    const capitalizedKey = key.replace(key[0], key[0].toUpperCase());
 
-    return mapper[`make${cappedKey}`](...Object.values(obj[key]));
+    return mapper[`make${capitalizedKey}`](data[key]);
   });
 }

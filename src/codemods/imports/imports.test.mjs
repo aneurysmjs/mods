@@ -5,22 +5,22 @@ import importsMod from './imports.mjs';
 const transformOptions = {};
 
 const namedImport = {
-  idenfifiers: ['compose'],
+  identifier: ['compose'],
   source: 'ramda',
 };
 
 const defaultImport = {
-  idenfifier: 'a',
+  identifier: 'a',
   source: 'b',
 };
 
 const namespaceImport = {
-  idenfifier: 'a',
+  identifier: 'a',
   source: 'b',
 };
 
 describe('imports', () => {
-  describe('adds import with existing ones', () => {
+  describe.only('adds import with existing ones', () => {
     const data = {
       namedImport,
       defaultImport,
