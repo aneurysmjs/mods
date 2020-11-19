@@ -16,7 +16,13 @@ export default function createVariable(j) {
    * @param {Declarator} declarator
    */
   function makeVariableDeclarator({ identifier, literal }) {
-    return j.variableDeclarator(j.identifier(identifier), literal && j.literal(literal));
+    const params = [j.identifier(identifier)];
+
+    if (literal) {
+      params.push(j.literal(literal));
+    }
+
+    return j.variableDeclarator.apply(j, params);
   }
 
   /**
@@ -30,5 +36,6 @@ export default function createVariable(j) {
 
     return j.variableDeclaration(kind, declarators.map(makeVariableDeclarator));
   }
+
   return { makeVariableDeclaration };
 }
