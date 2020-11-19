@@ -1,8 +1,10 @@
 /** @typedef {import('jscodeshift').FileInfo} FileInfo */
 /** @typedef {import('jscodeshift').API} API */
 
-import makersCreator from '../ultis/makersCreator';
-import mapDataToMaker from '../ultis/mapDataToMaker';
+import mapDataToMaker from '../../utils/mapDataToMaker.mjs';
+import makersCreator from '../../utils/makersCreator.mjs';
+
+console.log('mapDataToMaker', mapDataToMaker);
 
 /**
  * @function importsMod
@@ -11,7 +13,6 @@ import mapDataToMaker from '../ultis/mapDataToMaker';
  */
 const importsMod = (data) => (fileInfo, api) => {
   const j = api.jscodeshift;
-
 
   const makers = makersCreator(j);
 
