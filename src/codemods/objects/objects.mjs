@@ -2,6 +2,7 @@ import makeObject from '../../makers/makeObject.mjs';
 
 /** @typedef {import('jscodeshift').FileInfo} FileInfo */
 /** @typedef {import('jscodeshift').API} API */
+/** @typedef {import('../../makers/makeObject.mjs').ObjectData} ObjectData */
 
 /**
  * @function objectsMod
@@ -26,9 +27,7 @@ const objectsMod = (data) => (fileInfo, api) => {
 
   if (programBody.length) {
     programBody.replaceWith((node) => {
-      node.value.properties.push(
-        makeObjectProperty({ identifier: 'email', value: 'info@test.com' }),
-      );
+      node.value.properties.push(makeObjectProperty(data.property));
 
       return node.value;
     });
