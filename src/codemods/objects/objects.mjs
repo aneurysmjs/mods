@@ -1,11 +1,7 @@
+import makeObject from '../../makers/makeObject.mjs';
+
 /** @typedef {import('jscodeshift').FileInfo} FileInfo */
 /** @typedef {import('jscodeshift').API} API */
-
-/**
- * @typedef {object} ObjectData
- * @property {string} identifier
- * @property {string} value
- */
 
 /**
  * @function objectsMod
@@ -15,31 +11,27 @@
 const objectsMod = (data) => (fileInfo, api) => {
   const j = api.jscodeshift;
 
-  // const makers = makersCreator(j);
+  const { makeObjectProperty, makeObjectExpression } = makeObject(j);
 
   /**
    * when using using `applyTransform` fileInfo comes directly as a string.
    */
   const root = j(fileInfo.source);
 
-  /**
-   * @param {ObjectData}
-   */
-  const buildProperty = ({ identifier, value }) => {
-    return j.property('init', j.identifier(identifier), j.literal(value));
-  };
-  /**
-   * @param {ObjectData} objData
-   */
-  const createObjectExpression = (objData) => j.objectExpression([buildProperty(objData)]);
-
-  let programBody = root.find(j.ImportDeclaration);
+  let programBody = root.find(j.ObjectExpression);
 
   const obj = j.variableDeclaration('const', [
-    j.variableDeclarator(j.identifier('obj'), createObjectExpression(data)),
+    j.variableDeclarator(j.identifier('obj'), makeObjectExpression(data)),
   ]);
 
   if (programBody.length) {
+    programBody.replaceWith((node) => {
+      node.value.properties.push(
+        makeObjectProperty({ identifier: 'email', value: 'info@test.com' }),
+      );
+
+      return node.value;
+    });
   } else {
     programBody = root.find(j.Program).replaceWith(() => j.program([obj]));
   }
