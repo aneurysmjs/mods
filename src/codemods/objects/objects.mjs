@@ -22,12 +22,12 @@ const objectsMod = (data) => (fileInfo, api) => {
   let programBody = root.find(j.ObjectExpression);
 
   const obj = j.variableDeclaration('const', [
-    j.variableDeclarator(j.identifier('obj'), makeObjectExpression(data)),
+    j.variableDeclarator(j.identifier('obj'), makeObjectExpression(data.desc)),
   ]);
 
   if (programBody.length) {
     programBody.replaceWith((node) => {
-      node.value.properties.push(makeObjectProperty(data.property));
+      node.value.properties.push(makeObjectProperty(data.desc.property));
 
       return node.value;
     });

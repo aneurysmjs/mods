@@ -6,7 +6,7 @@ const transformOptions = {};
 
 describe('objects', () => {
   describe('creates a variable whose value is an object', () => {
-    const data = { identifier: 'name', value: 'Джеро' };
+    const data = { desc: { identifier: 'name', value: 'Джеро' } };
 
     const source = `
 
@@ -27,9 +27,12 @@ describe('objects', () => {
 
   describe('adds property  to an existing object', () => {
     const data = {
-      identifier: 'name',
-      value: 'Джеро',
-      property: { identifier: 'email', value: 'info@test.com' },
+      desc: {
+        identifier: 'name',
+        value: 'Джеро',
+        property: { identifier: 'email', value: 'info@test.com' },
+      },
+      meta: {},
     };
 
     const source = `
