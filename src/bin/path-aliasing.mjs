@@ -16,14 +16,14 @@ if (!moduleAliases) {
 
 import { promisify } from 'util';
 
-// const stat = promisify(fs.stat);
-// const lstat = promisify(fs.lstat);
-// const writeFile = promisify(fs.writeFile);
-// const unlink = promisify(fs.unlink);
-// const readdir = promisify(fs.readdir);
-// const symlink = promisify(fs.symlink);
-// const mkdir = promisify(fs.mkdir);
-// const rmdir = promisify(fs.rmdir);
+const stat = promisify(fs.stat);
+const lstat = promisify(fs.lstat);
+const writeFile = promisify(fs.writeFile);
+const unlink = promisify(fs.unlink);
+const readdir = promisify(fs.readdir);
+const symlink = promisify(fs.symlink);
+const mkdir = promisify(fs.mkdir);
+const rmdir = promisify(fs.rmdir);
 
 const fsMethods = ['stat', 'lstat', 'writeFile', 'unlink', 'readdir', 'symlink', 'mkdir', 'rmdir'];
 
