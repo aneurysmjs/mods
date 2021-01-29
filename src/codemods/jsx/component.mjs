@@ -1,3 +1,5 @@
+import jscodeshift from 'jscodeshift';
+// console.log('jscodeshift', jscodeshift);
 /** @typedef {import('jscodeshift').FileInfo} FileInfo */
 /** @typedef {import('jscodeshift').API} API */
 
@@ -6,8 +8,35 @@
  * @param {API['jscodeshift']} j
  * @return {(node: any) => void}
  */
-const print = (j) => (collection) => {
-  console.log('source ma nigga: \n\n', j(collection.get()).toSource());
+const print = (collection) => {
+  console.log('source: \n\n', jscodeshift(collection.get()).toSource());
+};
+
+const makeJSXAttribute = (attr) => {
+  const j = jscodeshift;
+  if (!Array.isArray(attr)) {
+    throw new Error('attr must be an array');
+  }
+
+  if (attr.length > 2) {
+    throw new Error('attr should contain only 2 items');
+  }
+
+  return j.jsxAttribute(j.jsxIdentifier(attr[0]), attr[1]);
+};
+
+const makeJSXAttributes = (attributes) => attributes.map(makeJSXAttribute);
+
+const makeJSXElement = (name, attrs) => {
+  const j = jscodeshift;
+
+  const attributes = makeJSXAttributes(attrs);
+
+  const opening = j.jsxOpeningElement(j.jsxIdentifier(name), attributes, true);
+
+  const element = j.jsxElement(opening);
+
+  return element;
 };
 
 /**
@@ -21,13 +50,7 @@ const component = () => (fileInfo, api) => {
 
   const result = root.findJSXElements('Menu');
 
-  const attribute = j.jsxAttribute(j.jsxIdentifier('text'), j.literal('other'));
-
-  const attributes = [attribute];
-
-  const opening = j.jsxOpeningElement(j.jsxIdentifier('Button'), attributes, true);
-
-  const button = j.jsxElement(opening);
+  const button = makeJSXElement('Button', [['text', j.literal('other')]]);
 
   const jsxText = j.jsxText('\n');
 
