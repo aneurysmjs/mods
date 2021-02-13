@@ -1,0 +1,1 @@
+export { default as makeComponent } from './src/makeComponent';
