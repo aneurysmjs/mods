@@ -1,0 +1,26 @@
+{
+  "name": "@mods/utils",
+  "version": "1.0.0",
+  "description": "codemod utilities",
+  "author": "aneurysm <aneurysmjs@outlook.com>",
+  "homepage": "https://github.com/aneurysmjs/mods#readme",
+  "license": "MIT",
+  "main": "index.ts",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aneurysmjs/mods.git"
+  },
+  "scripts": {
+    "test": "jest --config ../../jest.config.js --rootDir ."
+  },
+  "bugs": {
+    "url": "https://github.com/aneurysmjs/mods/issues"
+  }
+}

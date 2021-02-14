@@ -85,7 +85,7 @@ const makeComponent = ({ name, attributes }: ComponentAPI) => (
 
   const result = root.findJSXElements("Menu");
 
-  const button = makeJSXElement(name, [["text", j.literal("other")]]);
+  const button = makeJSXElement(name, attributes);
 
   const jsxText = j.jsxText("\n");
 
