@@ -1,10 +1,14 @@
+/**
+ * @link https://github.com/bunch-of-friends/lerna-typescript-jest-boilerplate/blob/master/jest.config.json
+ */
+/** @typedef {import('ts-jest/dist/types')} */
+/** @type {import('@jest/types').Config.InitialOptions} */
 export default {
-  moduleDirectories: ['node_modules'],
-  moduleFileExtensions: ['js', 'mjs'],
-  testEnvironment: 'jest-environment-node',
-  testMatch: ['**/__tests__/**/*.?(m)js?(x)', '**/?(*.)(spec|test).?(m)js?(x)'],
-  transform: {},
-  testURL: 'http://localhost',
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$'],
   verbose: true,
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$'],
 };
