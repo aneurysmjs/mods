@@ -1,0 +1,30 @@
+{
+  "name": "@mods/makers",
+  "version": "1.0.0",
+  "description": "abstractions for codemods",
+  "author": "aneurysm <aneurysmjs@outlook.com>",
+  "homepage": "https://github.com/aneurysmjs/mods#readme",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./build/index.js",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aneurysmjs/mods.git",
+    "directory": "packages/makers"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest --config ../../jest.config.js --rootDir ."
+  },
+  "bugs": {
+    "url": "https://github.com/aneurysmjs/mods/issues"
+  }
+}
