@@ -18,7 +18,7 @@
     "url": "git+https://github.com/aneurysmjs/mods.git"
   },
   "scripts": {
-    "test": "jest --config ../../jest.config.js --rootDir ."
+    "test": "yarn jest"
   },
   "bugs": {
     "url": "https://github.com/aneurysmjs/mods/issues"
