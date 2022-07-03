@@ -1,20 +1,19 @@
 // @ts-ignore
 import { applyTransform } from 'jscodeshift/dist/testUtils';
-import {literal} from 'jscodeshift';
+import { literal } from 'jscodeshift';
 
-import componentMod from '../src/makeComponent';
+import componentMod, { ComponentModAPI } from './makeComponent';
 
 const transformOptions = {};
 
-
 describe('makeComponent', () => {
   it('should add a new <Button /> component', () => {
-    const data = {
+    const data: ComponentModAPI = {
       name: 'Button',
-      attributes: [['text', literal('other')]]
+      attributes: [['text', literal('other')]],
     };
 
-    const source = `  
+    const source = `
     <Sidebar>
       <Menu>
         <Button text="click" />
@@ -33,9 +32,12 @@ describe('makeComponent', () => {
     </Sidebar>
     `;
 
-    //@ts-ignore
     const expected = applyTransform(componentMod(data), transformOptions, { source });
 
     expect(output.trim()).toEqual(expected);
   });
+
+  // it('should pass', () => {
+  //   expect(true).toBe(true);
+  // });
 });
