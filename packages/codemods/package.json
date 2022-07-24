@@ -26,5 +26,8 @@
   },
   "bugs": {
     "url": "https://github.com/aneurysmjs/mods/issues"
+  },
+  "dependencies": {
+    "@mods/utils": "1.0.0"
   }
 }
