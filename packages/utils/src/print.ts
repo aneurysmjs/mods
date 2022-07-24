@@ -1,4 +1,4 @@
-import jscodeshift from 'jscodeshift';
+import * as core from 'jscodeshift/src/core';
 import type { Collection } from 'jscodeshift';
 
 /**
@@ -7,5 +7,5 @@ import type { Collection } from 'jscodeshift';
  * @return {void}
  */
 export default (collection: Collection): void => {
-  console.log('source: \n\n', jscodeshift(collection.get()).toSource());
+  console.log('source: \n\n', core(collection.get()).toSource());
 };
