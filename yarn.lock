@@ -2131,6 +2131,8 @@ __metadata:
 "@mods/makers@workspace:packages/makers":
   version: 0.0.0-use.local
   resolution: "@mods/makers@workspace:packages/makers"
+  dependencies:
+    "@mods/utils": 1.0.0
   languageName: unknown
   linkType: soft
 
