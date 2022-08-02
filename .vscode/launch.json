@@ -14,10 +14,27 @@
       "outFiles": ["${workspaceFolder}/**/**"]
     },
     {
-      // @see https://github.com/microsoft/vscode-recipes/tree/master/debugging-jest-tests
       "type": "node",
       "request": "launch",
       "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [
+        "${fileBasenameNoExtension}",
+        "--config",
+        "jest.config.js"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      //  "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    },
+    {
+      // @see https://github.com/microsoft/vscode-recipes/tree/master/debugging-jest-tests
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File 'ESM'",
       // "program": "${workspaceFolder}/node_modules/.bin/jest",
       "args": [
         // VS Code debug with --experimental-modules flag 
@@ -28,7 +45,7 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
+      // "disableOptimisticBPs": true,
     },
     /**
      * Debugging current file in VS Code
