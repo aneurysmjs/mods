@@ -15,8 +15,6 @@ describe('variables', () => {
     var foo;
     `;
 
-    console.log('applyTransform', applyTransform);
-
     const expected = applyTransform(makeVariable, transformOptions, { source });
 
     it('creates a variable declaration', () => {
