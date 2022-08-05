@@ -1,8 +1,9 @@
-function isPrimitive(val: unknown) {
-  return val == null || /^[sbn]/.test(typeof val);
-}
+import isPrimitive from './isPrimitive';
 
-export default function looksLike<T extends Record<string, any>>(a: T, b: Record<keyof T, any>): boolean {
+export default function looksLike<T extends Record<string, any>>(
+  a: T,
+  b: Record<keyof T, any>,
+): boolean {
   return (
     a &&
     b &&
@@ -18,10 +19,3 @@ export default function looksLike<T extends Record<string, any>>(a: T, b: Record
     })
   );
 }
-
-const obj = {
-  name: 'jero',
-  age: 33,
-};
-
-const result = looksLike(obj, { age });
