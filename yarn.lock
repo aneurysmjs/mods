@@ -2136,6 +2136,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@mods/monorepo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@mods/monorepo@workspace:."
+  dependencies:
+    "@types/jest": 27.5.1
+    "@types/jscodeshift": 0.11.5
+    chalk: 4.1.0
+    commitizen: 4.2.2
+    cz-conventional-changelog: 3.3.0
+    jest: 28.1.0
+    jscodeshift: 0.13.1
+    lerna: 3.22.1
+    prettier: 2.2.1
+    ramda: 0.27.1
+    ts-jest: 28.0.5
+    typescript: 4.1.2
+    yargs: ^17.5.1
+  languageName: unknown
+  linkType: soft
+
 "@mods/utils@1.0.0, @mods/utils@workspace:packages/utils":
   version: 0.0.0-use.local
   resolution: "@mods/utils@workspace:packages/utils"
@@ -7639,26 +7659,6 @@ __metadata:
   checksum: 8296610c608bc97b03c2cf889c6cdf4517e32fa2d836440096374c2209f6b7b3e256c209493a0b32584b9cb32d528e99d0dd19dcd9a14d2d915a312d391cc7e9
   languageName: node
   linkType: hard
-
-"mods@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "mods@workspace:."
-  dependencies:
-    "@types/jest": 27.5.1
-    "@types/jscodeshift": 0.11.5
-    chalk: 4.1.0
-    commitizen: 4.2.2
-    cz-conventional-changelog: 3.3.0
-    jest: 28.1.0
-    jscodeshift: 0.13.1
-    lerna: 3.22.1
-    prettier: 2.2.1
-    ramda: 0.27.1
-    ts-jest: 28.0.5
-    typescript: 4.1.2
-    yargs: ^17.5.1
-  languageName: unknown
-  linkType: soft
 
 "move-concurrently@npm:^1.0.1":
   version: 1.0.1
