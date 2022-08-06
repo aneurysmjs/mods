@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "chalk": "4.1.0",
+    "jscodeshift": "0.13.1",
     "ramda": "0.27.1",
     "yargs": "^17.5.1"
   },
@@ -33,7 +34,6 @@
     "commitizen": "4.2.2",
     "cz-conventional-changelog": "3.3.0",
     "jest": "28.1.0",
-    "jscodeshift": "0.13.1",
     "lerna": "3.22.1",
     "prettier": "2.2.1",
     "ts-jest": "28.0.5",
