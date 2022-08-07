@@ -1887,7 +1887,7 @@ __metadata:
     "@tsconfig/node16-strictest": 1.0.3
     "@types/jest": 27.5.1
     "@types/jscodeshift": 0.11.5
-    "@types/ramda": ^0.28.15
+    "@types/ramda": 0.28.15
     chalk: 4.1.0
     commitizen: 4.2.2
     cz-conventional-changelog: 3.3.0
@@ -1897,7 +1897,7 @@ __metadata:
     prettier: 2.2.1
     ramda: 0.27.1
     ts-jest: 28.0.5
-    typescript: 4.1.2
+    typescript: 4.7.4
     yargs: ^17.5.1
   languageName: unknown
   linkType: soft
@@ -2299,7 +2299,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ramda@npm:^0.28.15":
+"@types/ramda@npm:0.28.15":
   version: 0.28.15
   resolution: "@types/ramda@npm:0.28.15"
   dependencies:
@@ -10431,17 +10431,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.1.2":
-  version: 4.1.2
-  resolution: "typescript@npm:4.1.2"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: a0bd309f001592b400a9e7ee3a6efe557cdd1a6bc84ebbfdaa179f994185e5276a1ea30e248d7139df08eee8ad2aa30b6108c27a9dd3b524a5e1c5669e25399e
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^4.6.4":
+"typescript@npm:4.7.4, typescript@npm:^4.6.4":
   version: 4.7.4
   resolution: "typescript@npm:4.7.4"
   bin:
@@ -10451,17 +10441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.2#~builtin<compat/typescript>":
-  version: 4.1.2
-  resolution: "typescript@patch:typescript@npm%3A4.1.2#~builtin<compat/typescript>::version=4.1.2&hash=bda367"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 1f1df4c7412c3e383001c30dd7301b395d8e42b6c35d3b7fb5b9833f528cd21831b5ed0ffb0729db28918436cd443228de079c573b367441e3be841b8dc4d85d
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>":
   version: 4.7.4
   resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=bda367"
   bin:
