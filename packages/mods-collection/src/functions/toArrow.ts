@@ -2,7 +2,7 @@ import type { FileInfo, API, ReturnStatement } from 'jscodeshift';
 
 import { isReturnStatementNode, isBlockStatementNode } from '@mods/utils';
 
-const toArrow = () => (fileInfo: FileInfo, api: API) => {
+const toArrow = (fileInfo: FileInfo, api: API) => {
   const j = api.jscodeshift;
 
   /**
@@ -17,6 +17,9 @@ const toArrow = () => (fileInfo: FileInfo, api: API) => {
   });
 
   const result = fnExpressionsNoThis.replaceWith((fn) => {
+    /**
+     * @see https://youtu.be/V5OnAN63vls?t=3422
+     */
     let { body } = fn.value;
     const { params } = fn.value;
 

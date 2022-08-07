@@ -21,11 +21,11 @@ describe('toArrow mod', () => {
     };
     `;
 
-    const expected = applyTransform(toArrowMod(), transformOptions, { source });
+    const expected = applyTransform(toArrowMod, transformOptions, { source });
     expect(output.trim()).toEqual(expected);
   });
 
-  it.only('replace function expression to one liner arrow function', () => {
+  it('replace function expression to one liner arrow function', () => {
     const source = `
     const foo = function () {
       return 'bar';
@@ -36,7 +36,7 @@ describe('toArrow mod', () => {
     const foo = () => 'bar';
     `;
 
-    const expected = applyTransform(toArrowMod(), transformOptions, { source });
+    const expected = applyTransform(toArrowMod, transformOptions, { source });
     expect(output.trim()).toEqual(expected);
   });
 });
