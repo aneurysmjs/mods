@@ -41,7 +41,9 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
 
       // @ts-ignore Figure out if the variable was defined from props, so that we can re-use that definition.
       const isFromProps = (name: string, resolvedScope) => {
-        return resolvedScope.getBindings()[name].every((p) => {
+
+        // @ts-ignore -> fix when`getBindings` has typings
+         return resolvedScope.getBindings()[name].every((p) => {
           const decl = j(p).closest(j.VariableDeclarator);
           // What happens when our VariableDeclarator is too high up the parent AST?
 
@@ -53,7 +55,7 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
 
           if (
             !(
-              node.init?.type == 'MemberExpression' &&
+              node?.init?.type == 'MemberExpression' &&
               node.init.object.type == 'ThisExpression' &&
               (node.init.property as Identifier).name == 'props'
             )
@@ -131,10 +133,10 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
 
       if (propDefinitions.size()) {
         const nodePath = propDefinitions.paths()[0];
-        const node = nodePath.value;
+        const node = nodePath?.value;
         // @ts-ignore
         const newPattern = j.objectPattern(node.id.properties.concat(properties));
-        nodePath.replace(j.variableDeclarator(newPattern, node.init));
+        nodePath?.replace(j.variableDeclarator(newPattern, node?.init));
         return fePath.value;
       }
 

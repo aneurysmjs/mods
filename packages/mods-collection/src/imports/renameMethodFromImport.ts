@@ -1,4 +1,4 @@
-import type { FileInfo, API, Identifier, Node } from 'jscodeshift';
+import type { FileInfo, API, Identifier } from 'jscodeshift';
 
 export const parser = 'ts';
 
@@ -15,6 +15,7 @@ export default (fileInfo: FileInfo, api: API) => {
       const scope = path.scope.lookup(objName);
       const bindings = scope.getBindings()[objName];
 
+      //@ts-ignore
       bindings.forEach((binding) => {
         const gp = binding.parent.parent.node;
 

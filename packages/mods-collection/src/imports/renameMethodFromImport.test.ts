@@ -33,8 +33,6 @@ describe('rename method from import', () => {
       employeeManager.checkAddress(userData)
     `;
 
-    console.log('applyTransform', applyTransform);
-
     const expected = applyTransform(renameMethodFromImport, transformOptions, { source });
 
     expect(output.trim()).toEqual(expected);

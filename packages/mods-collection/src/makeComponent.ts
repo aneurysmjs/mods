@@ -1,5 +1,4 @@
 import jscodeshift, {
-  Collection,
   API,
   FileInfo,
   JSXElement,
@@ -9,15 +8,6 @@ import jscodeshift, {
   jsxOpeningElement,
   jsxElement,
 } from 'jscodeshift';
-
-/**
- *
- * @param {Collection} collection
- * @return {void}
- */
-const print = (collection: Collection): void => {
-  console.log('source: \n\n', jscodeshift(collection.get()).toSource());
-};
 
 type JSXAttributeParam = Parameters<typeof jscodeshift.jsxAttribute>;
 

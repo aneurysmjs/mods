@@ -5,20 +5,21 @@
   "author": "aneurysm <aneurysmjs@outlook.com>",
   "homepage": "https://github.com/aneurysmjs/mods#readme",
   "license": "MIT",
-  "main": "index.ts",
-  "directories": {
-    "src": "src",
-    "test": "__tests__"
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
+    "./package.json": "./package.json"
   },
-  "files": [
-    "src"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aneurysmjs/mods.git"
-  },
-  "scripts": {
-    "test": "yarn jest"
   },
   "bugs": {
     "url": "https://github.com/aneurysmjs/mods/issues"
