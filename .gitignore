@@ -105,3 +105,7 @@ dist
 
 
 .yarn/
+
+packages/*/build/**
+
+packages/*/dist/**
