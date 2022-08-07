@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { PACKAGES_DIR } from './config/paths.mjs';
-import baseConfig from './jest.base.config.mjs';
+import baseConfig from './jest.config.base.mjs';
 
 const packages = fs.readdirSync(PACKAGES_DIR).filter((name) => {
   return fs.lstatSync(path.join(PACKAGES_DIR, name)).isDirectory();
