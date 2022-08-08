@@ -5,10 +5,13 @@
   "author": "aneurysm <aneurysmjs@outlook.com>",
   "homepage": "https://github.com/aneurysmjs/mods#readme",
   "license": "MIT",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "exports": {
-    ".": "./build/index.js",
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -24,5 +27,8 @@
   },
   "dependencies": {
     "@mods/utils": "1.0.0"
+  },
+  "engines": {
+    "node": "^16.10.0 || >=18.0.0"
   }
 }
