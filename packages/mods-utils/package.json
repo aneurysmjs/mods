@@ -23,5 +23,8 @@
   },
   "bugs": {
     "url": "https://github.com/aneurysmjs/mods/issues"
+  },
+  "engines": {
+    "node": "^16.10.0 || >=18.0.0"
   }
 }

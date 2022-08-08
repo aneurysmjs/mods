@@ -27,5 +27,8 @@
   },
   "dependencies": {
     "@mods/utils": "1.0.0"
+  },
+  "engines": {
+    "node": "^16.10.0 || >=18.0.0"
   }
 }
