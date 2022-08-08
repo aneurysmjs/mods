@@ -1,4 +1,4 @@
-import type { FileInfo, API, JSCodeshift, Collection, Program } from 'jscodeshift';
+import type { FileInfo, API, Collection, Program } from 'jscodeshift';
 import { variableDeclaration, variableDeclarator, identifier } from 'jscodeshift';
 
 const isProgramEmpty = (collectionProgram: Collection<Program>): boolean => {

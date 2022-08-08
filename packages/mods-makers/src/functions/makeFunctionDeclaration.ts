@@ -1,4 +1,4 @@
-import { functionDeclaration, identifier, blockStatement, Statement } from 'jscodeshift';
+import { functionDeclaration, identifier, blockStatement } from 'jscodeshift';
 
 export type Params = Parameters<typeof functionDeclaration>[1];
 export type Body = Parameters<typeof blockStatement>[0];
