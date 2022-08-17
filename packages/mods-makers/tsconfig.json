@@ -5,5 +5,8 @@
     "outDir": "build"
   },
   "include": ["./src/**/*"],
-  "exclude": ["./**/__tests__/**/*", "./**/*.test.ts"]
+  "exclude": ["./**/__tests__/**/*", "./**/*.test.ts"],
+  "references": [
+    {"path": "../mods-utils"}
+  ]
 }
