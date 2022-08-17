@@ -12,11 +12,13 @@
     ]
   },
   "scripts": {
+    "build": "node config/build.mjs",
     "build-clean": "rimraf './packages/*/build' './packages/*/dist' './packages/*/tsconfig.tsbuildinfo'",
     "commit": "git-cz",
     "root:test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "jscodeshift": "node node_modules/.bin/jscodeshift",
-    "test": "jest"
+    "test": "jest",
+    "watch": "node scripts/watch.mjs"
   },
   "config": {
     "commitizen": {
