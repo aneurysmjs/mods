@@ -104,7 +104,14 @@ import { getPackagesWithTsConfig } from './buildUtils.mjs';
     'tsc',
     '-b',
     ...packagesWithTs.map(({ packageDir }) => packageDir),
-    ...process.argv.slice(2),
+    /**
+     *  we skip these args:
+     * 
+     *  '/usr/local/bin/node',
+     *  '/Users/path/to/monorepo/scripts/build.mjs',
+     *  '/Users/path/to/monorepo/packages/mods-cli/src/index.ts' -> we're not interesting in this
+     */
+    ...process.argv.slice(3),
   ];
 
   console.log(chalk.inverse(' Building TypeScript definition files '));
