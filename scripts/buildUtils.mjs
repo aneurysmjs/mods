@@ -5,7 +5,7 @@ import fs from 'graceful-fs';
 
 import { PACKAGE_JSON } from '../config/const.mjs';
 import { PACKAGES_DIR } from '../config/paths.mjs';
-import { isDirWithTsConfigJson, appendPackageJson } from '../config/utils.mjs';
+import { isDirWithTsConfigJson, appendPackageJson, makePkgExports } from '../config/utils.mjs';
 
 export const getPackages = () => {
   const packages = fs
@@ -35,20 +35,7 @@ export const getPackages = () => {
 
     assert.deepStrictEqual(
       pkg.exports,
-      {
-        '.':
-          pkg.types == null
-            ? pkg.main
-            : {
-                types: pkg.types,
-                default: pkg.main,
-              },
-        './package.json': './package.json',
-        ...Object.values(pkg.bin || {}).reduce(
-          (mem, curr) => Object.assign(mem, { [curr.replace(/\.js$/, '')]: curr }),
-          {},
-        ),
-      },
+      makePkgExports(pkg),
       `Package "${pkg.name}" does not export correct files`,
     );
 

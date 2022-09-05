@@ -75,3 +75,83 @@ export const getPackages = () =>
     .map((file) => path.resolve(PACKAGES_DIR, file))
     .filter(isDirectory)
     .filter(isDirWithPackageJson);
+
+/**
+ *
+ * @typedef {Object} Pkg
+ * @property {string} [main] - Indicates whether the Courage component is present.
+ * @property {string} [types] - Indicates whether the Courage component is present.
+ * @property {string} [bin] - Indicates whether the Courage component is present.
+ */
+
+/**
+ * @param {Pkg} pkg
+ *
+ * @example
+ *
+ * {
+ *   ".": {
+ *     "types": "./build/index.d.ts",
+ *     "default": "./build/index.js"
+ *   },
+ * }
+ */
+export const makeDefaultExport = (pkg) => ({
+  '.':
+    pkg.types == null
+      ? pkg.main
+      : {
+          types: pkg.types,
+          default: pkg.main,
+        },
+});
+
+/**
+ *
+ * @example
+ *
+ * {
+ *   "./package.json": "./package.json",
+ * }
+ */
+export const makePackageJson = () => ({
+  './package.json': './package.json',
+});
+
+/**
+ * @param {Pkg} pkg
+ *
+ * @example
+ *
+ * {
+ *   "./bin/mods-cli": "./build/bin/mods-cli.js"
+ * }
+ */
+export const makePkgBin = (pkg) =>
+  Object.values(pkg.bin || {}).reduce(
+    (mem, curr) => ({
+      ...mem,
+      [curr.replace(/\.js$/, '')]: curr,
+    }),
+    {},
+  );
+
+/**
+ * @param {Pkg} pkg
+ *
+ * @example
+ *
+ * {
+ *   ".": {
+ *     "types": "./build/index.d.ts",
+ *     "default": "./build/index.js"
+ *   },
+ *   "./package.json": "./package.json",
+ *   "./bin/mods-cli": "./build/bin/mods-cli.js"
+ * }
+ */
+export const makePkgExports = (pkg) => ({
+  ...makeDefaultExport(pkg),
+  ...makePackageJson(),
+  ...makePkgBin(pkg),
+});
