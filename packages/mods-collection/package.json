@@ -4,7 +4,6 @@
   "description": "bunch of codemods",
   "author": "aneurysm <aneurysmjs@outlook.com>",
   "homepage": "https://github.com/aneurysmjs/mods#readme",
-  "type": "module",
   "license": "MIT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",

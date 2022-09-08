@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
+    "target": "ES2021",
+    "module": "Node16",
+    "moduleResolution": "node16"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./**/__tests__/**/*", "./**/*.test.ts"]
+}

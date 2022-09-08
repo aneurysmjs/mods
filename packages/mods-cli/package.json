@@ -1,0 +1,41 @@
+{
+  "name": "@mods/cli",
+  "version": "1.0.0",
+  "description": "codemod cli",
+  "author": "aneurysm <aneurysmjs@outlook.com>",
+  "homepage": "https://github.com/aneurysmjs/mods#readme",
+  "license": "MIT",
+  "main": "./build/index.mjs",
+  "types": "./build/index.d.mts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.mts",
+      "default": "./build/index.mjs"
+    },
+    "./package.json": "./package.json",
+    "./bin/mods-cli": "./bin/mods-cli.mjs"
+  },
+  "bin": {
+    "mods-cli": "./bin/mods-cli.mjs"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aneurysmjs/mods.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aneurysmjs/mods/issues"
+  },
+  "engines": {
+    "node": "^16.10.0 || >=18.0.0"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/globby": "^9.1.0",
+    "debug": "^4.3.4",
+    "globby": "^13.1.2"
+  }
+}
