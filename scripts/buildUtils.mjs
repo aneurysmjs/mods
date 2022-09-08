@@ -5,7 +5,14 @@ import fs from 'graceful-fs';
 
 import { PACKAGE_JSON } from '../config/const.mjs';
 import { PACKAGES_DIR } from '../config/paths.mjs';
-import { isDirWithTsConfigJson, appendPackageJson, makePkgExports } from '../config/utils.mjs';
+import {
+  isDirWithTsConfigJson,
+  appendPackageJson,
+  makePkgExports,
+  runAssertions,
+  indexEntries,
+  getIndexExt,
+} from '../config/utils.mjs';
 
 export const getPackages = () => {
   const packages = fs
@@ -40,21 +47,14 @@ export const getPackages = () => {
     );
 
     if (pkg.types) {
-      assert.strictEqual(
-        pkg.main,
-        './build/index.js',
-        `Package "${pkg.name}" should have "./build/index.js" as main`,
-      );
-      assert.strictEqual(
-        pkg.types,
-        './build/index.d.ts',
-        `Package "${pkg.name}" should have "./build/index.d.ts" as types`,
-      );
+      runAssertions(indexEntries(pkg), pkg);
     } else {
+      const indexExt = getIndexExt(pkg);
+
       assert.strictEqual(
         pkg.main,
-        './index.js',
-        `Package "${pkg.name}" should have "./index.js" as main`,
+        `./${indexExt}`,
+        `Package "${pkg.name}" should have "./${indexExt}" as main`,
       );
     }
 

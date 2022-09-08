@@ -5,7 +5,8 @@ import { execa } from 'execa';
 import fs from 'graceful-fs';
 import stripJsonComments from 'strip-json-comments';
 
-import { appendTsConfigJson } from '../config/utils.mjs';
+import { JS_REGEX, MJS_REGEX, D_TS_EXT, D_MTS_EXT } from '../config/const.mjs';
+import { appendTsConfigJson, isPkgESM } from '../config/utils.mjs';
 import { getPackagesWithTsConfig } from './buildUtils.mjs';
 
 (async () => {
@@ -57,9 +58,12 @@ import { getPackagesWithTsConfig } from './buildUtils.mjs';
   packagesWithTs.forEach(({ packageDir, pkg }) => {
     assert.ok(pkg.types, `Package ${pkg.name} is missing \`types\` field`);
 
+    const extRegex = isPkgESM(pkg) ? MJS_REGEX : JS_REGEX;
+    const dRegex = isPkgESM(pkg) ? D_MTS_EXT : D_TS_EXT;
+
     assert.strictEqual(
       pkg.types,
-      pkg.main.replace(/\.js$/, '.d.ts'),
+      pkg.main.replace(extRegex, dRegex),
       `\`main\` and \`types\` field of ${pkg.name} does not match`,
     );
 
@@ -106,7 +110,7 @@ import { getPackagesWithTsConfig } from './buildUtils.mjs';
     ...packagesWithTs.map(({ packageDir }) => packageDir),
     /**
      *  we skip these args:
-     * 
+     *
      *  '/usr/local/bin/node',
      *  '/Users/path/to/monorepo/scripts/build.mjs',
      *  '/Users/path/to/monorepo/packages/mods-cli/src/index.ts' -> we're not interesting in this
