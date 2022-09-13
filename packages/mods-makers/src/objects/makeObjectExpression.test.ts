@@ -1,7 +1,6 @@
-import * as core from 'jscodeshift/src/core';
+import core from 'jscodeshift/src/core';
+// console.log('core', core);
 import { stringLiteral } from 'jscodeshift';
-
-import { format } from '@mods/utils';
 
 import makeObjectExpression from './makeObjectExpression';
 

@@ -7,8 +7,6 @@ const transformOptions = {};
 
 describe('variables', () => {
   describe('makes a variable declaration of kind `var`', () => {
-    const data = { identifier: 'foo' };
-
     const source = '';
 
     const output = `

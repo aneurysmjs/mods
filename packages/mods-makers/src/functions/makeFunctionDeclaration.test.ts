@@ -1,11 +1,9 @@
 import * as core from 'jscodeshift/src/core';
-import { literal, variableDeclaration, variableDeclarator, identifier, ASTNode } from 'jscodeshift';
+import { variableDeclaration, variableDeclarator, identifier } from 'jscodeshift';
 
 import { format } from '@mods/utils';
 
 import makeFunctionDeclaration from './makeFunctionDeclaration';
-
-const transformOptions = {};
 
 describe('make function declaration', () => {
   it('works', () => {
