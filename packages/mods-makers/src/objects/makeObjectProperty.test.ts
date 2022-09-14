@@ -1,4 +1,4 @@
-import * as core from 'jscodeshift/src/core';
+import jscodeshift from 'jscodeshift';
 import { stringLiteral } from 'jscodeshift';
 
 import makeObjectProperty from './makeObjectProperty';
@@ -12,6 +12,6 @@ describe('make object property', () => {
     // @ts-ignore
     expect(prop.key.name).toBe('foo');
     // @ts-ignore
-    expect(core(prop).toSource({ quote: 'single', trailingComma: true })).toBe(result);
+    expect(jscodeshift(prop).toSource({ quote: 'single', trailingComma: true })).toBe(result);
   });
 });

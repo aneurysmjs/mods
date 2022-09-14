@@ -1,5 +1,4 @@
-import core from 'jscodeshift/src/core';
-// console.log('core', core);
+import jscodeshift from 'jscodeshift';
 import { stringLiteral } from 'jscodeshift';
 
 import makeObjectExpression from './makeObjectExpression';
@@ -18,6 +17,6 @@ describe('make object expression', () => {
 
     expect(obj.properties.length).toBe(1);
     // @ts-ignore
-    expect(core(obj).toSource(recastOptions).trim()).toBe(result.trim());
+    expect(jscodeshift(obj).toSource(recastOptions).trim()).toBe(result.trim());
   });
 });

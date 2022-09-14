@@ -1,4 +1,4 @@
-import * as core from 'jscodeshift/src/core';
+import jscodeshift from 'jscodeshift';
 import { variableDeclaration, variableDeclarator, identifier } from 'jscodeshift';
 
 import { format } from '@mods/utils';
@@ -20,8 +20,8 @@ describe('make function declaration', () => {
     `;
 
     expect(fn.id?.name).toBe('foo');
-    // @ts-ignore
-    expect(format(core(fn).toSource())).toBe(format(result));
+
+    expect(format(jscodeshift(fn).toSource())).toBe(format(result));
 
     expect(fn.params).toStrictEqual([]);
   });

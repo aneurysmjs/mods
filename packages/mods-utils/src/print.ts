@@ -1,7 +1,7 @@
-import * as core from 'jscodeshift/src/core';
+import jscodeshift from 'jscodeshift';
 import type { ASTPath, ASTNode, Collection } from 'jscodeshift';
 
 export default function print(nodeOrPath: ASTNode[] | ASTPath | ASTPath[] | Collection) {
-  // @ts-ignore
-  console.log('source: \n\n', core(nodeOrPath.get()).toSource());
+  // @ts-ignore -> TODO: fix 'get' call typings
+  console.log('source: \n\n', jscodeshift(nodeOrPath.get()).toSource());
 }
