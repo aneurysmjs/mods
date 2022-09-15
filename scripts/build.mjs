@@ -2,12 +2,10 @@ import assert from 'node:assert';
 import path from 'node:path';
 import chalk from 'chalk';
 import { execa } from 'execa';
-import fs from 'graceful-fs';
-import stripJsonComments from 'strip-json-comments';
 
 import { JS_REGEX, MJS_REGEX, D_TS_EXT, D_MTS_EXT } from '../config/const.mjs';
-import { appendTsConfigJson, isPkgESM } from '../config/utils.mjs';
-import { getPackagesWithTsConfig } from './buildUtils.mjs';
+import { isPkgESM } from '../config/utils.mjs';
+import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
 
 (async () => {
   const packagesWithTs = getPackagesWithTsConfig();
@@ -15,10 +13,10 @@ import { getPackagesWithTsConfig } from './buildUtils.mjs';
   /**
    *  single string contaning information about project's workspaces
    *
-   * "{"location":".","name":"@mods/monorepo"}
-   *  {"location":"packages/mods-pkg1","name":"@mods/pkg1"}
-   *  {"location":"packages/mods-pkg2","name":"@mods/pkg2"}
-   *  {"location":"packages/mods-pkg3","name":"@mods/pkg3"}"
+   * "{ "location": ".", "name":"@mods/monorepo" }
+   *  { "location": "packages/mods-pkg1","name": "@mods/pkg1" }
+   *  { "location": "packages/mods-pkg2","name": "@mods/pkg2" }
+   *  { "location": "packages/mods-pkg3","name": "@mods/pkg3" }"
    */
   const { stdout: allWorkspacesString } = await execa('yarn', ['workspaces', 'list', '--json']);
 
@@ -88,9 +86,7 @@ import { getPackagesWithTsConfig } from './buildUtils.mjs';
       .sort();
 
     if (jestDependenciesOfPackage.length > 0) {
-      const tsConfig = JSON.parse(
-        stripJsonComments(fs.readFileSync(appendTsConfigJson(packageDir), 'utf8')),
-      );
+      const tsConfig = getTsConfig(packageDir);
 
       const references = tsConfig.references.map(({ path }) => path);
 

@@ -2,6 +2,7 @@ import assert from 'node:assert';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import fs from 'graceful-fs';
+import stripJsonComments from 'strip-json-comments';
 
 import { PACKAGE_JSON } from '../config/const.mjs';
 import { PACKAGES_DIR } from '../config/paths.mjs';
@@ -12,6 +13,7 @@ import {
   runAssertions,
   indexEntries,
   getIndexExt,
+  appendTsConfigJson,
 } from '../config/utils.mjs';
 
 export const getPackages = () => {
@@ -76,3 +78,33 @@ export const getPackages = () => {
 
 export const getPackagesWithTsConfig = () =>
   getPackages().filter((p) => isDirWithTsConfigJson(p.packageDir));
+
+/**
+ *
+ * @typedef {Object} CompilerOptions
+ * @property {string} rootDir
+ * @property {string} outDir
+ *
+ * @typedef {Object} TsConfig
+ * @property {string} extends
+ * @property {CompilerOptions} compilerOptions
+ * @property {string[]} include
+ * @property {string[]} exclude
+ * @property {{path: string}[]} references
+ */
+
+/**
+ * Retrives tsconfig.json file from given package's folder
+ *
+ * @param {string} packageDir Absolute path to `packages` folder
+ *
+ * @returns {TsConfig}
+ *
+ * @example
+ *
+ * "/Users/path/to/monorepo/mods/packages"
+ * ->
+ * "/Users/path/to/monorepo/mods/packages/tsconfig.json"
+ */
+export const getTsConfig = (packageDir) =>
+  JSON.parse(stripJsonComments(fs.readFileSync(appendTsConfigJson(packageDir), 'utf8')));
