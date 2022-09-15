@@ -107,7 +107,7 @@ export const getPackages = () =>
  * @param {Pkg} pkg
  * @return boolean
  */
-export const isPkgESM = (pkg) => pkg?.type === 'module';
+export const isPkgESM = (pkg) => pkg?.type === 'module' && pkg.main?.includes(MTS_EXT);
 
 /**
  * Gets the corresponding js extension regex is package is an ESM module
@@ -138,7 +138,7 @@ export const replaceTypesExt = (pkg) =>
  *
  * @example
  *
- *": "./build/index.js ->": "./build/index.mjs"
+ * "./build/index.js ->": "./build/index.mjs"
  *
  *
  */
