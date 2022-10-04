@@ -36,8 +36,4 @@ describe('makeComponent', () => {
 
     expect(output.trim()).toEqual(expected);
   });
-
-  // it('should pass', () => {
-  //   expect(true).toBe(true);
-  // });
 });
