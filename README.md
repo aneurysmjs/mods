@@ -15,3 +15,8 @@ yarn workspace @mods/NAME_OF_THE_PACKAGE ...
 ```
 yarn workspace <workspaceName> <commandName> ...
 ```
+
+```
+test monorepo locally
+https://stackoverflow.com/a/66180304/5378393
+```
