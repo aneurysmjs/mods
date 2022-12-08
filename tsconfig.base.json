@@ -5,5 +5,9 @@
     "declaration": true,
     "sourceMap": true,
     "types": ["@types/node", "@types/jest", "@types/jscodeshift"]
-  }
+  },
+  "exclude": [
+    "config",
+    "scripts"
+  ]
 }
