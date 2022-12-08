@@ -15,7 +15,7 @@ const packages = fs.readdirSync(PACKAGES_DIR).filter((name) => {
  * @param {string} pkgName
  * @returns InitialOptions
  */
-const makeJestProjectConfig = (pkgName) => ({
+const makePackagesJestConfig = (pkgName) => ({
   ...baseConfig,
   displayName: pkgName,
   testEnvironment: 'node',
@@ -25,7 +25,19 @@ const makeJestProjectConfig = (pkgName) => ({
   ],
 });
 
+const esmJestConfig = {
+  ...baseConfig,
+  displayName: 'config',
+  testEnvironment: 'node',
+  testMatch: ['<rootDir>/config/**/?(*.)+(spec|test).mjs'],
+  transform: {},
+};
+
+const projects = packages.map(makePackagesJestConfig);
+
+projects.push(esmJestConfig);
+
 export default {
   verbose: true,
-  projects: packages.map(makeJestProjectConfig),
+  projects,
 };
