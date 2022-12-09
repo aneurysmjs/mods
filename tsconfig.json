@@ -3,6 +3,9 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
+      "@mods/cli": [
+        "./packages/mods-cli/src"
+      ],
       "@mods/collection": [
         "./packages/mods-collection/src"
       ],

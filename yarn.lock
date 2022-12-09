@@ -1876,7 +1876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mods/cli@workspace:packages/mods-cli":
+"@mods/cli@workspace:^, @mods/cli@workspace:packages/mods-cli":
   version: 0.0.0-use.local
   resolution: "@mods/cli@workspace:packages/mods-cli"
   dependencies:
@@ -1893,6 +1893,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@mods/collection@workspace:packages/mods-collection"
   dependencies:
+    "@mods/cli": "workspace:^"
     "@mods/utils": 1.0.0
   languageName: unknown
   linkType: soft
