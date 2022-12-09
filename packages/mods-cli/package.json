@@ -5,19 +5,19 @@
   "author": "aneurysm <aneurysmjs@outlook.com>",
   "homepage": "https://github.com/aneurysmjs/mods#readme",
   "license": "MIT",
-  "main": "./build/index.mjs",
-  "types": "./build/index.d.mts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/index.d.mts",
-      "default": "./build/index.mjs"
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
     },
     "./package.json": "./package.json",
-    "./bin/mods-cli": "./bin/mods-cli.mjs"
+    "./bin/mods-cli": "./bin/mods-cli.js"
   },
   "bin": {
-    "mods-cli": "./bin/mods-cli.mjs"
+    "mods-cli": "./bin/mods-cli.js"
   },
   "publishConfig": {
     "access": "public"
