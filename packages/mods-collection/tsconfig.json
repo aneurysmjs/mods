@@ -4,9 +4,11 @@
     "rootDir": "src",
     "outDir": "build"
   },
+  
   "include": ["./src/**/*"],
   "exclude": ["./**/__tests__/**/*", "./**/*.test.ts"],
   "references": [
+    {"path": "../mods-cli"},
     {"path": "../mods-utils"}
   ]
 }

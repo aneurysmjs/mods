@@ -7,12 +7,21 @@
   "license": "MIT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "cli:local": "mods-cli",
+    "cli": "mods-collection-cli"
+  },
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
       "default": "./build/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./bin/mods-collection-cli": "./bin/mods-collection-cli.js"
+  },
+  "bin": {
+    "mods-collection-cli": "./bin/mods-collection-cli.js"
   },
   "publishConfig": {
     "access": "public"
@@ -25,6 +34,7 @@
     "url": "https://github.com/aneurysmjs/mods/issues"
   },
   "dependencies": {
+    "@mods/cli": "workspace:^",
     "@mods/utils": "1.0.0"
   },
   "engines": {
