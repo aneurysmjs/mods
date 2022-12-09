@@ -19,7 +19,7 @@ export interface ComponentModAPI {
 }
 
 /**
-  
+ *
  * @param {AttributeTuple} attribute
  * @returns {JSXAttribute}
  */
@@ -61,7 +61,7 @@ const makeJSXElement = (name: string, attrs: Array<AttributeTuple>): JSXElement 
 /**
  * @return {(fileInfo: FileInfo, api: API) => string}
  */
-const makeComponent = ({ name, attributes }: ComponentModAPI) => (
+export const makeComponent = ({ name, attributes }: ComponentModAPI) => (
   fileInfo: FileInfo,
   api: API,
 ): string => {
@@ -79,5 +79,3 @@ const makeComponent = ({ name, attributes }: ComponentModAPI) => (
 
   return result.toSource({ trailingComma: true });
 };
-
-export default makeComponent;

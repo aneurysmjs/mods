@@ -2,7 +2,7 @@
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 import { literal } from 'jscodeshift';
 
-import componentMod, { ComponentModAPI } from './makeComponent';
+import { makeComponent, ComponentModAPI } from './makeComponent';
 
 const transformOptions = {};
 
@@ -32,7 +32,7 @@ describe('makeComponent', () => {
     </Sidebar>
     `;
 
-    const expected = applyTransform(componentMod(data), transformOptions, { source });
+    const expected = applyTransform(makeComponent(data), transformOptions, { source });
 
     expect(output.trim()).toEqual(expected);
   });
