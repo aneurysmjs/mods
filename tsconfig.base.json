@@ -4,6 +4,6 @@
     "composite": true,
     "declaration": true,
     "sourceMap": true,
-    "types": ["@types/node", "@types/jest", "@types/jscodeshift"]
+    "typeRoots": ["node_modules/@types", "types"]
   }
 }
