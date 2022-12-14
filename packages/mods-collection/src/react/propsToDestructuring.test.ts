@@ -1,10 +1,9 @@
-// @ts-ignore
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 import propsToDestucturing from './propsToDestructuring';
 import { format } from '@mods/utils';
 const transformOptions = {};
 
-describe.only('props to destructuring', () => {
+describe('props to destructuring', () => {
   it('extracts from `this.props` into a destructured variable declaration', () => {
     const source = `
     class C extends React.Component() {

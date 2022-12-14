@@ -1,4 +1,3 @@
-// @ts-ignore
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
 import makeVariable from './makeVariable';

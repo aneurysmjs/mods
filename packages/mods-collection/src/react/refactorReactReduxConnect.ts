@@ -87,7 +87,7 @@ export default function refactorReactReduxConnect(fileInfo: FileInfo, api: API) 
       ]),
     ])
     .forEach((path) => {
-      // basically we abstract this:
+      // basically we abstract
       // path.value.expression.callee.arguments[0] = j.identifier('mapStateToProps');
       // path.value.expression.callee.arguments[1] = j.identifier('mapDispatchToProps');
       setArgsForNestedCallExpression(path, 0, j.identifier('mapStateToProps'));

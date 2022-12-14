@@ -109,3 +109,7 @@ build
 packages/*/build/**
 
 packages/*/dist/**
+
+# we don't want to ignore `dist` folder inside types since is only simulating
+# a module path to a file
+!types/**/dist/
