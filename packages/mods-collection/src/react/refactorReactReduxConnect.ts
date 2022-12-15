@@ -1,7 +1,7 @@
 /**
  * @see https://github.com/sharils/slides/blob/master/20171105-jscodeshift-refactor-js-with-js/demo-5/demo-5-transform.js
  */
-import type { ExpressionKind } from 'ast-types/gen/kinds';
+// import type { ExpressionKind } from 'ast-types/gen/kinds';
 import type {
   FileInfo,
   API,
@@ -9,6 +9,7 @@ import type {
   RecursiveMatchNode,
   ASTPath,
   CallExpression,
+  variableDeclarator,
 } from 'jscodeshift';
 
 // const callingConnect = {
@@ -49,6 +50,8 @@ const callingConnect: RecursiveMatchNode<ExpressionStatement> = {
   },
 };
 
+type ExpressionKind = NonNullable<Parameters<typeof variableDeclarator>[1]>;
+
 const argsFromNestedCallExpression = (path: ASTPath<ExpressionStatement>) => {
   const CallExpression = path.value.expression as CallExpression;
   const callee = CallExpression.callee as CallExpression;
@@ -76,6 +79,7 @@ export default function refactorReactReduxConnect(fileInfo: FileInfo, api: API) 
       j.variableDeclaration('const', [
         j.variableDeclarator(
           j.identifier('mapStateToProps'),
+
           argsFromNestedCallExpression(path)[0],
         ),
       ]),
