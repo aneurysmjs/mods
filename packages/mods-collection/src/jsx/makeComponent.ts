@@ -1,15 +1,7 @@
-import jscodeshift, {
-  API,
-  FileInfo,
-  JSXElement,
-  JSXAttribute,
-  jsxIdentifier,
-  jsxAttribute,
-  jsxOpeningElement,
-  jsxElement,
-} from 'jscodeshift';
+import * as j from 'jscodeshift'
+import type { API, FileInfo, JSXElement, JSXAttribute } from 'jscodeshift';
 
-type JSXAttributeParam = Parameters<typeof jscodeshift.jsxAttribute>;
+type JSXAttributeParam = Parameters<typeof j.jsxAttribute>;
 
 export type AttributeTuple = [string, JSXAttributeParam['1']];
 
@@ -32,7 +24,7 @@ const makeJSXAttribute = (attribute: AttributeTuple): JSXAttribute => {
     throw new Error('attr should contain only 2 items');
   }
 
-  return jsxAttribute(jsxIdentifier(attribute[0]), attribute[1]);
+  return j.jsxAttribute(j.jsxIdentifier(attribute[0]), attribute[1]);
 };
 
 /**
@@ -51,9 +43,9 @@ const makeJSXAttributes = (attributes: Array<AttributeTuple>) => attributes.map(
 const makeJSXElement = (name: string, attrs: Array<AttributeTuple>): JSXElement => {
   const attributes = makeJSXAttributes(attrs);
 
-  const opening = jsxOpeningElement(jsxIdentifier(name), attributes, true);
+  const opening = j.jsxOpeningElement(j.jsxIdentifier(name), attributes, true);
 
-  const element = jsxElement(opening);
+  const element = j.jsxElement(opening);
 
   return element;
 };
