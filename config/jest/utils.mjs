@@ -1,18 +1,12 @@
 import baseConfig from './jest.config.base.mjs';
-
-/** @type {import('@jest/types').Config.InitialOptions} */
-const modsUtilsJestConfig = {
-  watchPathIgnorePatterns: [
-    '<rootDir>/packages/mods-utils/src/testUtils/defineTestForFixtures/(__testfixtures__/)?(w-?)+(.input|output)?.js',
-  ],
-};
+import jestConfigsMap from './jestConfigsMap.mjs';
 
 /**
  *
  * @param {string} pkgName
  */
 const addConfigForPkg = (pkgName) => {
-  return pkgName === 'mods-utils' ? modsUtilsJestConfig : {};
+  return jestConfigsMap[pkgName] ?? {};
 };
 
 /**
@@ -28,5 +22,6 @@ export const makePackagesJestConfig = (pkgName) => ({
     `<rootDir>/packages/${pkgName}/**/?(*.)+(spec|test).[jt]s?(x)`,
     `<rootDir>/packages/${pkgName}/**/__tests__/**/*.{js,jsx,mjs,ts,tsx}`,
   ],
+
   ...addConfigForPkg(pkgName),
 });
