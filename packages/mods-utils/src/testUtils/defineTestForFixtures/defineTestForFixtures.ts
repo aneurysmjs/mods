@@ -31,7 +31,7 @@ interface DefineTestForFixturesOptions {
 
 const testfixturesDir = '__testfixtures__';
 
-export function defineTestForFixtures({
+export async function defineTestForFixtures({
   dirName,
   transformName,
   options,
@@ -54,8 +54,8 @@ export function defineTestForFixtures({
   const expectedOutput = fs.readFileSync(outputPath, 'utf8');
 
   // We assume that the transform is sibling from the test
-  // const transform = await import(`${dirName}/${transformName}.${extension}`);
-  const transform = require(`${dirName}/${transformName}.${extension}`);
+  const transform = await import(`${dirName}/${transformName}.${extension}`);
+  // const transform = require(`${dirName}/${transformName}.${extension}`);
 
   runInlineTest(
     transform.default ? transform.default : transform,

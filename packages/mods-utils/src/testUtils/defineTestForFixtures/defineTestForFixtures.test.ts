@@ -1,4 +1,3 @@
-// @ts-ignore
 import fs from 'node:fs';
 import path from 'node:path';
 // @ts-ignore
@@ -9,7 +8,7 @@ const testfixturesDir = '__testfixtures__';
 const dirName = path.resolve(__dirname);
 const fixturesFolder = path.resolve(dirName, testfixturesDir);
 
-const fixtures = ['foo', 'bar', 'baz'];
+const transforms = ['foo'];
 
 jest.mock('jscodeshift/dist/testUtils', () => ({
   runInlineTest: jest.fn(),
@@ -20,11 +19,11 @@ afterEach(() => {
 });
 
 describe('defineTestForFixtures', () => {
-  // it('should throw if folder "__testfixtures__" doesn\'t exist', async () => {
-  //   await expect(
-  //     defineTestForFixtures({ dirName, transformName: 'testTransform' }),
-  //   ).rejects.toEqual(`'${testfixturesDir}' folder not found`);
-  // });
+  it('should throw if folder "__testfixtures__" doesn\'t exist', async () => {
+    await expect(
+      defineTestForFixtures({ dirName, transformName: 'testTransform' }),
+    ).rejects.toEqual(`'${testfixturesDir}' folder not found`);
+  });
 
   describe('running fixures', () => {
     beforeAll(() => {
@@ -32,52 +31,71 @@ describe('defineTestForFixtures', () => {
         fs.mkdirSync(fixturesFolder);
       }
 
-      for (const fixture of fixtures) {
-        const fixtureName = `${fixture}.js`;
-        fs.writeFileSync(path.join(dirName, fixtureName), '');
-        fs.writeFileSync(path.join(dirName, fixtureName), `const ${fixture} = '${fixtureName}'`);
+      for (const transformName of transforms) {
+        const transform = `${transformName}.js`;
+        const transformPath = path.join(dirName, transform);
+
+        fs.writeFileSync(
+          transformPath,
+          `module.exports = function ${transformName}() {
+            return '${transformName}';
+          }\n`,
+        );
       }
 
-      for (const fixture of fixtures) {
+      for (const transformName of transforms) {
         for (const fixtureType of ['input', 'output']) {
-          const fixtureName = `${fixture}.${fixtureType}.js`;
-          fs.writeFileSync(path.join(fixturesFolder, fixtureName), '');
+          const fixtureName = `${transformName}.${fixtureType}.js`;
           fs.writeFileSync(
             path.join(fixturesFolder, fixtureName),
-            `const ${fixture} = '${fixtureName}';\n`,
+            `const ${transformName} = '${fixtureName}';\n`,
           );
         }
       }
     });
 
     afterAll(() => {
-      for (const fixture of fixtures) {
-        const fixtureName = `${fixture}.js`;
+      for (const transformName of transforms) {
+        const fixtureName = `${transformName}.js`;
         fs.unlinkSync(path.join(dirName, fixtureName));
       }
 
-      for (const fixture of fixtures) {
-        for (const fixtureType of ['input', 'output']) {
-          const fixtureName = `${fixture}.${fixtureType}.js`;
-          //  fs.unlinkSync(fixtureName);
-          fs.unlinkSync(path.join(dirName, testfixturesDir, fixtureName));
-        }
-      }
       fs.rmSync(fixturesFolder, { recursive: true });
     });
 
-    // it('should be called "runInlineTest" with options', async () => {
-    //   await defineTestForFixtures({ dirName, transformName: 'foo' });
-    //   expect(runInlineTest).toHaveBeenCalled();
-    // });
-
-    // it('should be called "runInlineTest" with options', async () => {
-    //   await defineTestForFixtures({ dirName, transformName: 'bar' });
-    //   expect(runInlineTest).toHaveBeenCalled();
-    // });
     it('should be called "runInlineTest" with options', async () => {
-      await defineTestForFixtures({ dirName, transformName: 'bar' });
+      await defineTestForFixtures({ dirName, transformName: 'foo' });
       expect(runInlineTest).toHaveBeenCalled();
+
+      const mockRunInlineTest = runInlineTest as jest.Mock<ReturnType<typeof runInlineTest>>;
+
+      expect(typeof mockRunInlineTest.mock.calls[0][0]).toBe('function');
+
+      expect(mockRunInlineTest.mock.calls[0][1]).toBe(undefined);
+
+      expect(mockRunInlineTest.mock.calls[0][2]).toStrictEqual({
+        path: `${fixturesFolder}/foo.input.js`,
+        source: "const foo = 'foo.input.js';\n",
+      });
+
+      expect(mockRunInlineTest.mock.calls[0][3]).toBe("const foo = 'foo.output.js';\n");
+
+      expect(mockRunInlineTest.mock.calls[0][4]).toBe(undefined);
+    });
+
+    it('should throw if transformName is not correct', async () => {
+      const transformName = 'testTransform';
+      const errorMessage = `ENOENT: no such file or directory, open '${fixturesFolder}/${transformName}.input.js'`;
+
+      await expect(defineTestForFixtures({ dirName, transformName })).rejects.toEqual(
+        expect.objectContaining({
+          message: errorMessage,
+        }),
+      );
+
+      // expect(() => {
+      //   defineTestForFixtures({ dirName, transformName });
+      // }).toThrow();
     });
   });
 });
