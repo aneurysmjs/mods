@@ -9,6 +9,9 @@
       "@mods/collection": [
         "./packages/mods-collection/src"
       ],
+      "@mods/jscodeshift-api": [
+        "./packages/mods-jscodeshift-api/src"
+      ],
       "@mods/makers": [
         "./packages/mods-makers/src"
       ],

@@ -27,4 +27,20 @@ declare module 'jscodeshift/dist/testUtils' {
     input: TransformInput,
     testOptions: TestOptions = {},
   ): string {};
+
+  export declare function defineTest(
+    dirName: string,
+    transformName: string,
+    options: Record<string, any> | null,
+    testFilePrefix: string,
+    testOptions: { parser: string; [K: string]: any },
+  ): string {};
+
+  export declare function runInlineTest(
+    module: string,
+    transformName: string,
+    options: Record<string, any> | null,
+    testFilePrefix: string,
+    testOptions: { parser: string; [K: string]: any },
+  ): string {};
 }
