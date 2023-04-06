@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { execa } from 'execa';
 
 import { JS_REGEX, MJS_REGEX, D_TS_EXT, D_MTS_EXT } from '../config/const.mjs';
-import { isPkgESM } from '../config/utils.mjs';
+import { isPkgESM, listWorkspaces } from '../config/utils.mjs';
 import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
 
 (async () => {
@@ -30,7 +30,8 @@ import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
    *   { location: 'packages/mods-pkg3', name: '@mods/pkg3' }
    * ]
    */
-  const allWorkspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
+  // const allWorkspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
+  const allWorkspaces = await listWorkspaces();
 
   /**
    * Transform to a Map only containing the packages that its location

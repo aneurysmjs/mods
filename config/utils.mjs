@@ -1,6 +1,7 @@
 import assert from 'node:assert';
 import fs from 'node:fs';
 import path from 'node:path';
+import { execa } from 'execa';
 
 import {
   PACKAGE_JSON,
@@ -11,7 +12,7 @@ import {
   MJS_EXT,
   MJS_REGEX,
 } from './const.mjs';
-import { PACKAGES_DIR } from './paths.mjs';
+import { PACKAGES_DIR, ROOT } from './paths.mjs';
 
 /**
  *
@@ -258,4 +259,119 @@ export const runAssertions = (assertionsEntries, pkg) => {
       `Package "${pkg.name}" should have "./build/${indexFile}" as ${pkgProp}`,
     );
   });
+};
+
+/**
+ * @link https://github.com/pnpm/pnpm/issues/1519#issuecomment-1299922699
+ */
+export const listWorkspaces = async () => {
+  /**
+   * TODO: make an utility function to detect package manager
+   */
+  const isYarn = false;
+  const isPnpm = true;
+
+  let workspaces = [];
+
+  if (isYarn) {
+    // yarn workspaces list --json
+    /**
+     *  single string contaning information about project's workspaces
+     *
+     * "{ "location": ".", "name":"@mods/monorepo" }
+     *  { "location": "packages/mods-pkg1","name": "@mods/pkg1" }
+     *  { "location": "packages/mods-pkg2","name": "@mods/pkg2" }
+     *  { "location": "packages/mods-pkg3","name": "@mods/pkg3" }"
+     */
+    // const { stdout: allWorkspacesString } = await execa('yarn', ['workspaces', 'list', '--json']);
+    /**
+     * Transform to a JSON array
+     *
+     * [
+     *   { location: '.', name: '@mods/monorepo' },
+     *   { location: 'packages/mods-pkg1', name: '@mods/pkg1' },
+     *   { location: 'packages/mods-pkg2', name: '@mods/pkg2' },
+     *   { location: 'packages/mods-pkg3', name: '@mods/pkg3' }
+     * ]
+     */
+    // allWorkspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
+  } else if (isPnpm) {
+    /**
+     * command: pnpm m ls --json --depth=-1
+     *
+     * [
+     *   {
+     *     "name": "@mods/monorepo",
+     *     "version": "1.0.0",
+     *     "path": "/abs/path/to/project/mods",
+     *     "private": true
+     *   }
+     * ]
+     * [
+     *   {
+     *     "name": "@mods/mods-pkg1",
+     *     "version": "1.0.0",
+     *     "path": "/abs/path/to/project/mods/packages/mods-pkg1",
+     *     "private": false
+     *   }
+     * ]
+     * [
+     *   {
+     *     "name": "@mods/mods-pkg2",
+     *     "version": "1.0.0",
+     *     "path": "/abs/path/to/project/mods/packages/mods-pkg2",
+     *     "private": false
+     *   }
+     * ]
+     * [
+     *   {
+     *     "name": "@mods/mods-pkg3",
+     *     "version": "1.0.0",
+     *     "path": "/abs/path/to/project/mods/packages/mods-pkg3",
+     *     "private": false
+     *   }
+     * ]
+     */
+    const { stdout: allWorkspacesString } = await execa('pnpm', [
+      'm',
+      'ls',
+      '--json',
+      '--depth=-1',
+    ]);
+
+    const rootPathScaped = ROOT.replace(/\//g, '\\/');
+
+    /**
+     * @link https://stackoverflow.com/a/43391072/5378393
+     */
+    const rootPathRegex = new RegExp(String.raw`${rootPathScaped}`, 'g');
+    /**
+     * @description we remove the package's absolute path
+     *
+     * @example
+     *
+     * /abs/path/to/project/mods/packages/mods-pkg1
+     *
+     * to
+     *
+     * /mods/packages/mods-pkg1
+     *
+     */
+    const prunedAbsPathWorkspaces = allWorkspacesString.replace(rootPathRegex, '');
+    const jsonString = prunedAbsPathWorkspaces.replace(/\](?=\s)/g, '],');
+    const parsedWorkspaces = JSON.parse(`
+  [
+    ${jsonString}
+  ]
+  `);
+
+    workspaces = parsedWorkspaces.flat().map((workspace) => ({
+      location: workspace.private ? '.' : workspace.path,
+      name: workspace.name,
+    }));
+  }
+
+  console.log('workspaces', workspaces);
+
+  return workspaces;
 };
