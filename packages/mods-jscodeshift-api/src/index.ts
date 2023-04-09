@@ -1,1 +1,1 @@
-export * from './scope/scope.js';
+export * from './insertBefore/insertBefore.js';
