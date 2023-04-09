@@ -268,22 +268,23 @@ export const listWorkspaces = async () => {
   /**
    * TODO: make an utility function to detect package manager
    */
-  const isYarn = false;
-  const isPnpm = true;
+  const isYarn = true;
+  const isPnpm = false;
 
   let workspaces = [];
 
   if (isYarn) {
-    // yarn workspaces list --json
     /**
-     *  single string contaning information about project's workspaces
+     * command: yarn workspaces list --json
+     * 
+     * single string contaning information about project's workspaces
      *
      * "{ "location": ".", "name":"@mods/monorepo" }
      *  { "location": "packages/mods-pkg1","name": "@mods/pkg1" }
      *  { "location": "packages/mods-pkg2","name": "@mods/pkg2" }
      *  { "location": "packages/mods-pkg3","name": "@mods/pkg3" }"
      */
-    // const { stdout: allWorkspacesString } = await execa('yarn', ['workspaces', 'list', '--json']);
+    const { stdout: allWorkspacesString } = await execa('yarn', ['workspaces', 'list', '--json']);
     /**
      * Transform to a JSON array
      *
@@ -294,7 +295,7 @@ export const listWorkspaces = async () => {
      *   { location: 'packages/mods-pkg3', name: '@mods/pkg3' }
      * ]
      */
-    // allWorkspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
+    workspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
   } else if (isPnpm) {
     /**
      * command: pnpm m ls --json --depth=-1
@@ -360,10 +361,10 @@ export const listWorkspaces = async () => {
     const prunedAbsPathWorkspaces = allWorkspacesString.replace(rootPathRegex, '');
     const jsonString = prunedAbsPathWorkspaces.replace(/\](?=\s)/g, '],');
     const parsedWorkspaces = JSON.parse(`
-  [
-    ${jsonString}
-  ]
-  `);
+      [
+        ${jsonString}
+      ]
+    `);
 
     workspaces = parsedWorkspaces.flat().map((workspace) => ({
       location: workspace.private ? '.' : workspace.path,

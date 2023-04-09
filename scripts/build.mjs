@@ -10,27 +10,6 @@ import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
 (async () => {
   const packagesWithTs = getPackagesWithTsConfig();
 
-  /**
-   *  single string contaning information about project's workspaces
-   *
-   * "{ "location": ".", "name":"@mods/monorepo" }
-   *  { "location": "packages/mods-pkg1","name": "@mods/pkg1" }
-   *  { "location": "packages/mods-pkg2","name": "@mods/pkg2" }
-   *  { "location": "packages/mods-pkg3","name": "@mods/pkg3" }"
-   */
-  const { stdout: allWorkspacesString } = await execa('yarn', ['workspaces', 'list', '--json']);
-
-  /**
-   * Transform to a JSON array
-   *
-   * [
-   *   { location: '.', name: '@mods/monorepo' },
-   *   { location: 'packages/mods-pkg1', name: '@mods/pkg1' },
-   *   { location: 'packages/mods-pkg2', name: '@mods/pkg2' },
-   *   { location: 'packages/mods-pkg3', name: '@mods/pkg3' }
-   * ]
-   */
-  // const allWorkspaces = JSON.parse(`[${allWorkspacesString.split('\n').join(',')}]`);
   const allWorkspaces = await listWorkspaces();
 
   /**
@@ -118,6 +97,8 @@ import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
   console.log(chalk.inverse(' Building TypeScript definition files '));
 
   try {
+    // TODO: utility to determine package manager
+    //  await execa('pnpm', args, { stdio: 'inherit' });
     await execa('yarn', args, { stdio: 'inherit' });
     console.log(chalk.inverse.green(' Successfully built TypeScript definition files '));
   } catch (e) {
