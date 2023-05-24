@@ -1,7 +1,7 @@
 import { defineTestForFixtures } from '@mods/utils';
 
-describe('scope', () => {
-  it('insertes variable declarator before "foo"', () => {
+describe('insertBefore', () => {
+  it('inserts variable declarator before "foo"', () => {
     defineTestForFixtures({
       dirName: __dirname,
       transformName: 'insertBefore',
