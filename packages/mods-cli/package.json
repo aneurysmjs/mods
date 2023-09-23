@@ -33,9 +33,9 @@
     "node": "^16.10.0 || >=18.0.0"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
+    "@types/debug": "^4.1.9",
     "@types/globby": "^9.1.0",
     "debug": "^4.3.4",
-    "globby": "^13.1.2"
+    "globby": "^13.2.2"
   }
 }
