@@ -10,6 +10,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     sourceType: 'module',
+    // eslint-disable-next-line no-undef
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.eslint.json', './packages/*/tsconfig.json'],
   },
