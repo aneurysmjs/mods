@@ -1,0 +1,34 @@
+{
+  "name": "@mods/playground",
+  "version": "1.0.0",
+  "description": "playground for codemods",
+  "author": "aneurysm <aneurysmjs@outlook.com>",
+  "homepage": "https://github.com/aneurysmjs/mods#readme",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aneurysmjs/mods.git",
+    "directory": "packages/playground"
+  },
+  "bugs": {
+    "url": "https://github.com/aneurysmjs/mods/issues"
+  },
+  "dependencies": {
+    "@mods/utils": "1.0.0"
+  },
+  "engines": {
+    "node": "^16.10.0 || >=18.0.0"
+  }
+}

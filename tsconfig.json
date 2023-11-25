@@ -15,6 +15,9 @@
       "@mods/makers": [
         "./packages/mods-makers/src"
       ],
+      "@mods/playground": [
+        "./packages/mods-playground/src"
+      ],
       "@mods/utils": [
         "./packages/mods-utils/src"
       ]
