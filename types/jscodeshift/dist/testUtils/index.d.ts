@@ -4,7 +4,7 @@ declare module 'jscodeshift/dist/testUtils' {
    *
    * @link https://stackoverflow.com/a/60797897/5378393
    */
-  import type { FileInfo, API, Transform } from 'jscodeshift';
+  import type { Transform } from 'jscodeshift';
 
   type Module =
     | {
@@ -23,24 +23,24 @@ declare module 'jscodeshift/dist/testUtils' {
 
   export declare function applyTransform(
     module: Module,
-    options: Record<string, any>,
+    options: Record<string, unknown>,
     input: TransformInput,
     testOptions: TestOptions = {},
-  ): string {};
+  ): string;
 
   export declare function defineTest(
     dirName: string,
     transformName: string,
-    options: Record<string, any> | null,
+    options: Record<string, unknown> | null,
     testFilePrefix: string,
-    testOptions: { parser: string; [K: string]: any },
-  ): string {};
+    testOptions: { parser: string; [K: string]: unknown },
+  ): string;
 
   export declare function runInlineTest(
     module: string,
     transformName: string,
-    options: Record<string, any> | null,
+    options: Record<string, unknown> | null,
     testFilePrefix: string,
-    testOptions: { parser: string; [K: string]: any },
-  ): string {};
+    testOptions: { parser: string; [K: string]: unknown },
+  ): string;
 }
