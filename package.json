@@ -6,11 +6,6 @@
   "license": "MIT",
   "type": "module",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "build-clean": "rimraf './packages/*/build' './packages/*/dist' './packages/*/tsconfig.tsbuildinfo'",
