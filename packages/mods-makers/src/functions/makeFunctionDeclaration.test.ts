@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import jscodeshift from 'jscodeshift';
 import { variableDeclaration, variableDeclarator, identifier } from 'jscodeshift';
 

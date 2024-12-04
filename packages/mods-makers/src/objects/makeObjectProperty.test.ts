@@ -1,5 +1,6 @@
-import jscodeshift from 'jscodeshift';
-import { stringLiteral } from 'jscodeshift';
+import { describe, expect, it } from 'vitest';
+
+import jscodeshift, { stringLiteral } from 'jscodeshift';
 
 import makeObjectProperty from './makeObjectProperty';
 

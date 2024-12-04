@@ -34,7 +34,7 @@ const toArrow = (fileInfo: FileInfo, api: API) => {
 
       if (argument !== null) {
         // @ts-ignore -> body is typed as BlockStatement but argument is an Expression
-        body = argument ;
+        body = argument;
       }
     }
 

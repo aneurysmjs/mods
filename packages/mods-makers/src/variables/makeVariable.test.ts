@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
 import makeVariable from './makeVariable';

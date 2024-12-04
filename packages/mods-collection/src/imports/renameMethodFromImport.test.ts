@@ -1,6 +1,8 @@
+import { describe, expect, it } from 'vitest';
+
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
-import renameMethodFromImport from './renameMethodFromImport';
+import renameMethodFromImport from './renameMethodFromImport.js';
 
 const transformOptions = {};
 
