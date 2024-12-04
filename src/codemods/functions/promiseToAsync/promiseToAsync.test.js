@@ -1,8 +1,5 @@
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
-import React from 'react';
-console.log('React.version', React.version);
-
 import promiseToAsyncMod from './promiseToAsync.mjs';
 
 const transformOptions = {};

@@ -9,7 +9,7 @@ declare module 'jscodeshift' {
    * jscodeshift does not exports `RecursiveMatchNode` so that's why is redefined heres
    */
   export type RecursiveMatchNode<T> =
-    | (T extends {}
+    | (T extends object
         ? {
             [K in keyof T]?: RecursiveMatchNode<T[K]>;
           }
