@@ -35,7 +35,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@tsconfig/node16-strictest": "1.0.4",
+    "@tsconfig/node22": "^22.0.0",
     "@types/jest": "29.5.5",
     "@types/jscodeshift": "0.11.7",
     "@types/ramda": "0.29.6",
@@ -54,6 +54,6 @@
     "rimraf": "^5.0.5",
     "strip-json-comments": "^5.0.1",
     "ts-jest": "29.1.1",
-    "typescript": "5.2.2"
+    "typescript": "5.7.2"
   }
 }
