@@ -26,7 +26,7 @@
     "url": "https://github.com/aneurysmjs/mods/issues"
   },
   "dependencies": {
-    "@mods/utils": "1.0.0"
+    "@mods/utils": "workspace:*"
   },
   "engines": {
     "node": "^16.10.0 || >=18.0.0"
