@@ -268,15 +268,15 @@ export const listWorkspaces = async () => {
   /**
    * TODO: make an utility function to detect package manager
    */
-  const isYarn = true;
-  const isPnpm = false;
+  const isYarn = false;
+  const isPnpm = true;
 
   let workspaces = [];
 
   if (isYarn) {
     /**
      * command: yarn workspaces list --json
-     * 
+     *
      * single string contaning information about project's workspaces
      *
      * "{ "location": ".", "name":"@mods/monorepo" }
@@ -371,8 +371,6 @@ export const listWorkspaces = async () => {
       name: workspace.name,
     }));
   }
-
-  console.log('workspaces', workspaces);
 
   return workspaces;
 };
