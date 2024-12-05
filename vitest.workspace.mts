@@ -8,6 +8,7 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const packages = path.resolve(dirname, 'packages');
 
+
 function getFoldersSync(dirPath: string) {
   const files = fs.readdirSync(dirPath);
   const folders = files.filter((file) => {
@@ -20,11 +21,10 @@ function getFoldersSync(dirPath: string) {
   return folders;
 }
 
-export default defineWorkspace([
-  ...getFoldersSync(packages).map((packageName) => ({
-    test: {
-      name: packageName,
-    },
-    exclude: ['**/node_modules/**', './src/**/*'],
-  })),
-]);
+
+export default defineWorkspace(getFoldersSync(packages).map((packageName) => ({
+  test: {
+    name: packageName,
+    dir: path.join(packages, packageName)
+  },
+})));
