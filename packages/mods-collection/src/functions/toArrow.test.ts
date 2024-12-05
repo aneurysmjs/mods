@@ -1,6 +1,8 @@
+import { describe, it, expect } from 'vitest';
+
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 
-import toArrowMod from './toArrow';
+import toArrowMod from './toArrow.js';
 
 const transformOptions = {};
 

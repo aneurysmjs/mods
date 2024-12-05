@@ -1,6 +1,9 @@
+import { describe, expect, it } from 'vitest';
+
 import { applyTransform } from 'jscodeshift/dist/testUtils';
-import refactorReactReduxConnect from './refactorReactReduxConnect';
 import { format } from '@mods/utils';
+import refactorReactReduxConnect from './refactorReactReduxConnect.js';
+
 const transformOptions = {};
 
 describe('refactor react redux connect', () => {

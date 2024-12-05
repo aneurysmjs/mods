@@ -1,7 +1,8 @@
+import { describe, it, expect } from 'vitest';
 import { applyTransform } from 'jscodeshift/dist/testUtils';
 import { literal } from 'jscodeshift';
 
-import { makeComponent, ComponentModAPI } from './makeComponent';
+import { makeComponent, ComponentModAPI } from './makeComponent.js';
 
 const transformOptions = {};
 
