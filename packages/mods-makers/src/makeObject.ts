@@ -1,4 +1,4 @@
-import { objectExpression, property } from 'jscodeshift';
+import { objectExpression, property, type Property, type ObjectExpression } from 'jscodeshift';
 
 type PropertyParams = Parameters<typeof property>;
 
@@ -13,14 +13,14 @@ export interface ObjectProperty {
 }
 
 export interface ObjectData {
-  properties: Array<ObjectProperty>;
+  properties: ObjectProperty[];
 }
 
-export function makeObjectProperty({ kind = 'init', key, value }: ObjectProperty) {
+export function makeObjectProperty({ kind = 'init', key, value }: ObjectProperty): Property {
   return property(kind, key, value);
 }
 
-export function makeObjectProperties(properties: Array<ObjectProperty>) {
+export function makeObjectProperties(properties: ObjectProperty[]) {
   return properties.map(makeObjectProperty);
 }
 

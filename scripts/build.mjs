@@ -98,8 +98,8 @@ import { getPackagesWithTsConfig, getTsConfig } from './buildUtils.mjs';
 
   try {
     // TODO: utility to determine package manager
-    //  await execa('pnpm', args, { stdio: 'inherit' });
-    await execa('yarn', args, { stdio: 'inherit' });
+    await execa('pnpm', args, { stdio: 'inherit' });
+    // await execa('yarn', args, { stdio: 'inherit' });
     console.log(chalk.inverse.green(' Successfully built TypeScript definition files '));
   } catch (e) {
     console.error(chalk.inverse.red(' Unable to build TypeScript definition files '));

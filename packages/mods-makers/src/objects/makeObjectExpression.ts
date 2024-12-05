@@ -1,4 +1,4 @@
-import { objectExpression } from 'jscodeshift';
+import { objectExpression, ObjectExpression } from 'jscodeshift';
 
 import makeObjectProperty, { PropertyValue } from './makeObjectProperty';
 
@@ -7,6 +7,9 @@ export interface MakeObjectExpression {
   value: PropertyValue;
 }
 
-export default function makeObjectExpression({ key, value }: MakeObjectExpression) {
+export default function makeObjectExpression({
+  key,
+  value,
+}: MakeObjectExpression): ObjectExpression {
   return objectExpression([makeObjectProperty(key, value)]);
 }

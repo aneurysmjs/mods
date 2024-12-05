@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // @ts-ignore
 import j, { Collection, ASTPath, Node, Identifier, ASTNode } from 'jscodeshift';
 // / import { print } from '@mods/utils';
@@ -13,12 +12,8 @@ interface Scope {
   isGlobal: boolean;
   depth: number;
   parent: Scope;
-  bindings: {
-    [key: string]: unknown;
-  };
-  types: {
-    [key: string]: unknown;
-  };
+  bindings: Record<string, unknown>;
+  types: Record<string, unknown>;
   didScan: boolean;
   declares(name: string): unknown;
   declaresType(name: string): unknown;
@@ -26,16 +21,10 @@ interface Scope {
   injectTemporary(identifier: any, init: any): unknown;
   // @see https://github.com/benjamn/ast-types/blob/master/src/scope.ts#L164
   scan(force?: boolean): void;
-  getBindings(): {
-    [key: string]: unknown;
-  };
-  getTypes(): {
-    [key: string]: unknown;
-  };
+  getBindings(): Record<string, unknown>;
+  getTypes(): Record<string, unknown>;
   lookup(name: string): Scope;
-  lookupType(
-    name: string,
-  ): {
+  lookupType(name: string): {
     getTypes: Scope['getTypes'];
   };
   getGlobalScope(): Scope;
@@ -56,13 +45,19 @@ export function getIdentifierScopes(identifierName: string, ast: Collection) {
     // @ts-ignore
     const test = identifier.scope as Scope;
     // @ts-ignore
-    const node = identifier
+    const node = identifier;
 
     identifierScopes.add('vaya');
   });
 
   return Array.from(identifierScopes);
 }
+
+/**
+ * @description The inferred type of 'getVariableScope' cannot be named without a reference to '.pnpm/ast-types@0.14.2/node_modules/ast-types'. This is likely not portable. A type annotation is necessary.
+ * @see https://stackoverflow.com/a/78111987/5378393
+ */
+type ClosestScope = Collection<ASTNode>;
 
 export function getVariableScope(variableName: string, ast: Collection) {
   const variableDeclaration = ast.find(j.VariableDeclaration, {
@@ -73,7 +68,7 @@ export function getVariableScope(variableName: string, ast: Collection) {
     throw new Error(`Variable "${variableName}" not found in the AST`);
   }
 
-  const variableScope = variableDeclaration.closestScope();
+  const variableScope: ClosestScope = variableDeclaration.closestScope();
 
   return variableScope;
 }
@@ -98,6 +93,5 @@ export function getVariableScope(variableName: string, ast: Collection) {
 // @ts-ignore
 // console.log(identifierScopes.map((scope) => scope.value)); // should print an array with the function node and the program node
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 // console.log(variableScope.path.value); // should print the function node where the variable was declared
 //
