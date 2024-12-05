@@ -10,7 +10,8 @@
   "type": "module",
   "scripts": {
     "cli:local": "mods-cli",
-    "cli": "mods-collection-cli"
+    "cli": "mods-collection-cli",
+    "test": "vitest --dir ./src"
   },
   "exports": {
     ".": {

@@ -1,6 +1,9 @@
+import { describe, it, expect } from 'vitest';
 import { applyTransform } from 'jscodeshift/dist/testUtils';
-import propsToDestucturing from './propsToDestructuring';
 import { format } from '@mods/utils';
+
+import propsToDestucturing from './propsToDestructuring.js';
+
 const transformOptions = {};
 
 describe('props to destructuring', () => {

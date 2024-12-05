@@ -1,15 +1,14 @@
 import type { FileInfo, API, Identifier, ASTPath, MemberExpression, Expression } from 'jscodeshift';
 import { print } from '@mods/utils';
 
-interface KeywordMap {
-  [K: string]: boolean;
-}
+type KeywordMap = Record<string, boolean>;
 
 const KEYWORDS =
   'this function if return var else for new in typeof while case break try catch delete throw switch continue default instanceof do void finally with debugger implements interface package private protected public static class enum export extends import super true false null abstract boolean byte char const double final float goto int long native short synchronized throws transient volatile';
 
 const KEYWORDS_MAP = KEYWORDS.split(' ').reduce<KeywordMap>((f, k) => {
   f[k] = true;
+
   return f;
 }, {});
 
@@ -37,7 +36,7 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
     .replaceWith((fePath) => {
       const root = j(fePath.value);
 
-      const variablesToReplace: { [K: string]: boolean } = {};
+      const variablesToReplace: Record<string, boolean> = {};
 
       // @ts-ignore Figure out if the variable was defined from props, so that we can re-use that definition.
       const isFromProps = (name: string, resolvedScope) => {
@@ -55,7 +54,7 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
 
           if (
             !(
-              node?.init?.type == 'MemberExpression' &&
+              node.init?.type == 'MemberExpression' &&
               node.init.object.type == 'ThisExpression' &&
               (node.init.property as Identifier).name == 'props'
             )
@@ -133,10 +132,10 @@ export default function propsToDestucturing(file: FileInfo, api: API) {
 
       if (propDefinitions.size()) {
         const nodePath = propDefinitions.paths()[0];
-        const node = nodePath?.value;
+        const node = nodePath.value;
         // @ts-ignore
         const newPattern = j.objectPattern(node.id.properties.concat(properties));
-        nodePath?.replace(j.variableDeclarator(newPattern, node?.init));
+        nodePath.replace(j.variableDeclarator(newPattern, node.init));
         return fePath.value;
       }
 
