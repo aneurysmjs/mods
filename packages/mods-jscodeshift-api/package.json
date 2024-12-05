@@ -7,15 +7,15 @@
   "license": "MIT",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
+  "scripts": {
+    "test": "vitest --dir ./src"
+  },
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
       "default": "./build/index.js"
     },
     "./package.json": "./package.json"
-  },
-  "scripts": {
-    "test": "yarn run -T test --selectProjects=\"mods-jscodeshift-api\""
   },
   "publishConfig": {
     "access": "public"
