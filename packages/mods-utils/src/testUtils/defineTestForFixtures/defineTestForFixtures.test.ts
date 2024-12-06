@@ -1,4 +1,4 @@
-import { vi, afterEach, describe, it, beforeAll, afterAll, expect } from 'vitest';
+import { vi, afterEach, describe, it, beforeAll, afterAll, expect, type Mock } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { runInlineTest } from 'jscodeshift/dist/testUtils';
@@ -67,7 +67,7 @@ describe.skip('defineTestForFixtures', () => {
       await defineTestForFixtures({ dirName, transformName: 'foo' });
       expect(runInlineTest).toHaveBeenCalled();
 
-      const mockRunInlineTest = runInlineTest as vi.mock<ReturnType<typeof runInlineTest>>;
+      const mockRunInlineTest = runInlineTest as unknown as Mock<typeof runInlineTest>;
 
       expect(typeof mockRunInlineTest.mock.calls[0][0]).toBe('function');
 
