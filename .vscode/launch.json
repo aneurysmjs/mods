@@ -14,50 +14,13 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Jest test",
-      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-      "args": ["-i"],
-      "outFiles": ["${workspaceFolder}/**/**"]
-    },
-    /**
-     * @link https://formidable.com/blog/2022/debug-jest/
-     */
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Jest Current File",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": [
-        "--collectCoverage=false",
-        "--colors",
-        "--config",
-        "${workspaceRoot}/jest.config.mjs",
-        "--runInBand",
-        "--runTestsByPath",
-        "${relativeFile}",
-        "--testPathPattern=${fileDirname}",
-        "--testTimeout=10000000"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      // @see https://github.com/microsoft/vscode-recipes/tree/master/debugging-jest-tests
-      "type": "node",
-      "request": "launch",
-      "name": "Jest Current File 'ESM'",
-      // "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": [
-        // VS Code debug with --experimental-modules flag
-        // @see https://stackoverflow.com/a/60582503/5378393
-        "--experimental-vm-modules",
-        "${workspaceFolder}/node_modules/.bin/jest",
-        "--config",
-        "${workspaceRoot}/jest.config.mjs",
-        "${fileBasenameNoExtension}"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "name": "Debug Current Test File",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+      "args": ["run", "${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
     }
   ]
 }
