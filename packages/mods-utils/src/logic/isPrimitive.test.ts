@@ -28,6 +28,7 @@ describe('isPrimitive', () => {
   });
 
   it('should be false for function', () => {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     expect(isPrimitive(typeof function () {})).toBe(true);
   });
 });
