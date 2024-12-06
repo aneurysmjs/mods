@@ -27,6 +27,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['**/__testfixtures__/**/*'],
+    ignores: ['**/__testfixtures__/**/*', '**/build/**/*'],
   },
 );
