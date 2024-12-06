@@ -8,7 +8,7 @@ let prettierConfig: Options;
 try {
   const prettierrc = fs.readFileSync(`${prettierConfigPath}/.prettierrc.json`, 'utf8');
 
-  prettierConfig = JSON.parse(prettierrc);
+  prettierConfig = JSON.parse(prettierrc) as Options;
 
   // we use 'babel-ts' because we know that all the codemods we're using are typescript files
   prettierConfig.parser = 'babel-ts';
