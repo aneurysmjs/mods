@@ -1,5 +1,5 @@
-import * as j from 'jscodeshift'
-import type { API, FileInfo, JSXElement, JSXAttribute } from 'jscodeshift';
+import * as j from 'jscodeshift';
+import type { API, FileInfo, JSXElement, JSXAttribute, ASTPath } from 'jscodeshift';
 
 type JSXAttributeParam = Parameters<typeof j.jsxAttribute>;
 
@@ -9,6 +9,8 @@ export interface ComponentModAPI {
   name: string;
   attributes: [AttributeTuple];
 }
+
+const ATTRIBUTES_LIMIT = 2;
 
 /**
  *
@@ -20,7 +22,8 @@ const makeJSXAttribute = (attribute: AttributeTuple): JSXAttribute => {
     throw new Error('attr must be an array');
   }
 
-  if (attribute.length > 2) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (attribute.length > ATTRIBUTES_LIMIT) {
     throw new Error('attr should contain only 2 items');
   }
 
@@ -32,7 +35,7 @@ const makeJSXAttribute = (attribute: AttributeTuple): JSXAttribute => {
  * @param {Array<AttributeTuple>} attributes
  * @return {Array<JSXAttribute>}
  */
-const makeJSXAttributes = (attributes: Array<AttributeTuple>) => attributes.map(makeJSXAttribute);
+const makeJSXAttributes = (attributes: AttributeTuple[]) => attributes.map(makeJSXAttribute);
 
 /**
  *
@@ -40,7 +43,7 @@ const makeJSXAttributes = (attributes: Array<AttributeTuple>) => attributes.map(
  * @param {Array<AttributeTuple>} attrs
  * @return {JSXElement}
  */
-const makeJSXElement = (name: string, attrs: Array<AttributeTuple>): JSXElement => {
+const makeJSXElement = (name: string, attrs: AttributeTuple[]): JSXElement => {
   const attributes = makeJSXAttributes(attrs);
 
   const opening = j.jsxOpeningElement(j.jsxIdentifier(name), attributes, true);
@@ -53,21 +56,24 @@ const makeJSXElement = (name: string, attrs: Array<AttributeTuple>): JSXElement 
 /**
  * @return {(fileInfo: FileInfo, api: API) => string}
  */
-export const makeComponent = ({ name, attributes }: ComponentModAPI) => (
-  fileInfo: FileInfo,
-  api: API,
-): string => {
-  const j = api.jscodeshift;
+export const makeComponent =
+  ({ name, attributes }: ComponentModAPI) =>
+  (fileInfo: FileInfo, api: API): string => {
+    const j = api.jscodeshift;
 
-  const root = j(fileInfo.source);
+    const root = j(fileInfo.source);
 
-  const result = root.findJSXElements('Menu');
+    const menu = root.findJSXElements('Menu');
 
-  const button = makeJSXElement(name, attributes);
+    const button = makeJSXElement(name, attributes);
 
-  const jsxText = j.jsxText('\n');
+    const jsxText = j.jsxText('\n');
 
-  result.get().value.children = [...result.get().value.children, button, jsxText];
+    const menuPath = menu.get() as ASTPath;
 
-  return result.toSource({ trailingComma: true });
-};
+    const children = (menuPath.value as JSXElement).children;
+
+    (menuPath.value as JSXElement).children = [...(children as JSXElement[]), button, jsxText];
+
+    return menu.toSource({ trailingComma: true });
+  };
