@@ -1,4 +1,31 @@
-import type { FileInfo, API, Identifier } from 'jscodeshift';
+import type { FileInfo, API, Identifier, ASTPath as JSCodeshiftASTPath } from 'jscodeshift';
+
+interface Scope {
+  // path: ASTPath;
+  node: any;
+  isGlobal: boolean;
+  depth: number;
+  parent: any;
+  bindings: any;
+  types: any;
+  didScan: boolean;
+  declares(name: any): any;
+  declaresType(name: any): any;
+  declareTemporary(prefix?: any): any;
+  injectTemporary(identifier: any, init: any): any;
+  scan(force?: any): any;
+  getBindings(): Record<string, ASTPath[]>;
+  getTypes(): any;
+  lookup(name: string): Scope | null;
+  lookupType(name: string): {
+    getTypes: Scope['getTypes'];
+  };
+  getGlobalScope(): Scope;
+}
+
+interface ASTPath extends JSCodeshiftASTPath {
+  parent: ASTPath;
+}
 
 export const parser = 'ts';
 
@@ -12,19 +39,24 @@ export default (fileInfo: FileInfo, api: API) => {
     })
     .forEach((path) => {
       const objName = (path.node.object as Identifier).name;
-      const scope = path.scope.lookup(objName);
-      const bindings = scope.getBindings()[objName];
+      const scope = (path.scope as Scope).lookup(objName);
 
-      //@ts-ignore
-      bindings.forEach((binding) => {
-        const gp = binding.parent.parent.node;
+      if (scope) {
+        const bindings = scope.getBindings()[objName];
 
-        if (binding.node.name === 'User' && gp.type === 'ImportDeclaration') {
-          if (gp.source.value === 'user-lib') {
-            (path.node.property as Identifier).name = 'check';
+        bindings.forEach((binding) => {
+          const grandParent = binding.parent.parent.node;
+
+          if (
+            (binding.node as Identifier).name === 'User' &&
+            grandParent.type === 'ImportDeclaration'
+          ) {
+            if (grandParent.source.value === 'user-lib') {
+              (path.node.property as Identifier).name = 'check';
+            }
           }
-        }
-      });
+        });
+      }
     });
 
   return root.toSource();
