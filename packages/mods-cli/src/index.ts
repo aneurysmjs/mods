@@ -44,6 +44,7 @@ async function main() {
 
   const pathToIndex = `${pathToBuild}/index.js`;
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const tfm = await import(pathToIndex);
 
   console.log('tfm', tfm);
@@ -69,7 +70,7 @@ async function main() {
   // }
 }
 
-main().catch((err) => {
+main().catch((err: unknown) => {
   console.error(err);
   process.exit(1);
 });

@@ -1,15 +1,13 @@
 import type { Transform, Parser } from 'jscodeshift';
 
-import * as makeComponent from './jsx/makeComponent.js';
+import { makeComponent } from './jsx/makeComponent.js';
 
-type JSTransformationModule = {
+interface JSTransformationModule {
   default: Transform;
   parser?: string | Parser;
-};
-// @ts-ignore
-const transformationMap: {
-  [name: string]: JSTransformationModule;
-} = {
+}
+
+const transformationMap: Record<string, JSTransformationModule> = {
   ...makeComponent,
 };
 

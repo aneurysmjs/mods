@@ -39,7 +39,7 @@ export async function defineTestForFixtures({
   testOptions,
 }: DefineTestForFixturesOptions) {
   if (!fs.existsSync(path.join(dirName, testfixturesDir))) {
-    throw `'${testfixturesDir}' folder not found`;
+    throw new Error(`'${testfixturesDir}' folder not found`);
   }
 
   if (!testFilePrefix) {
@@ -54,10 +54,12 @@ export async function defineTestForFixtures({
   const expectedOutput = fs.readFileSync(outputPath, 'utf8');
 
   // We assume that the transform is sibling from the test
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const transform = await import(`${dirName}/${transformName}.${extension}`);
   // const transform = require(`${dirName}/${transformName}.${extension}`);
 
   runInlineTest(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
     transform.default ? transform.default : transform,
     // @ts-ignore
     options,
