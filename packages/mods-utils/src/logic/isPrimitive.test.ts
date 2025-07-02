@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import isPrimitive from './isPrimitive';
+import isPrimitive from './isPrimitive.js';
 
 describe('isPrimitive', () => {
   it('should be true for boolean', () => {

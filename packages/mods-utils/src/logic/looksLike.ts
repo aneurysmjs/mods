@@ -1,4 +1,4 @@
-import isPrimitive from './isPrimitive';
+import isPrimitive from './isPrimitive.js';
 
 function keys<T extends object>(object: T): (keyof T)[] {
   return Object.keys(object) as (keyof T)[];

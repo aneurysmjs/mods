@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import looksLike from './looksLike';
+import looksLike from './looksLike.js';
 
 describe('looksLike', () => {
   it('should return true for matching primitive values', () => {

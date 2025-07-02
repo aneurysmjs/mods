@@ -2,7 +2,7 @@ import { vi, afterEach, describe, it, beforeAll, afterAll, expect, type Mock } f
 import fs from 'node:fs';
 import path from 'node:path';
 import { runInlineTest } from 'jscodeshift/dist/testUtils';
-import { defineTestForFixtures } from './defineTestForFixtures';
+import { defineTestForFixtures } from './defineTestForFixtures.js';
 
 const testfixturesDir = '__testfixtures__';
 const dirName = path.resolve(__dirname);

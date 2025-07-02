@@ -1,1 +1,1 @@
-export { defineTestForFixtures } from './defineTestForFixtures';
+export { defineTestForFixtures } from './defineTestForFixtures.js';

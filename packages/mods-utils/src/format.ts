@@ -1,13 +1,17 @@
 import prettier from 'prettier';
-import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const prettierConfigPath = path.resolve(__dirname, '../../../');
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+const prettierConfigPath = path.resolve(dirname, '../../../');
 
 export default async function format(str: string) {
-  const config = await prettier.resolveConfig(prettierConfigPath);
+  const config = await prettier.resolveConfig(`${prettierConfigPath}/prettier.config.mjs`);
 
   if (!config) {
-    throw new Error('can\'t resolve Prettier config');
+    throw new Error("can't resolve Prettier config");
   }
 
   config.parser = 'babel-ts';
