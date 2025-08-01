@@ -43,6 +43,7 @@
     "eslint": "^9.16.0",
     "execa": "^8.0.1",
     "graceful-fs": "^4.2.11",
+    "memfs": "^4.25.0",
     "p-limit": "^4.0.0",
     "prettier": "3.0.3",
     "rimraf": "^6.0.1",
